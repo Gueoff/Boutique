@@ -3,40 +3,40 @@ package com.alma.model;
 
 public class Client {
 
-	private String nom;
-	private String prenom;
+	private String name;
+	private String firstname;
 	private int age;
 	private String email;
-	private Panier panier;
+	private Cart cart = new Cart();
 	
 	
 
-	public Client(String nom, String prenom, int age, String email) {
+	public Client(String name, String firstname, int age, String email) {
 		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.age = age;
-		this.email = email;
-		this.panier = new Panier();
+		setName(name);
+		setFirstname(firstname);
+		setAge(age);
+		setEmail(email);
 	}
 	
 	public Client() {
 	}
+	
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public int getAge() {
@@ -55,25 +55,23 @@ public class Client {
 		this.email = email;
 	}
 
-	public Panier getPanier() {
-		return panier;
+	public Cart getCart() {
+		return cart;
 	}
 
-	public void setPanier(Panier panier) {
-		this.panier = panier;
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
-	public void ajouterAuPanier(Article article){
-		if(article.isDisponible()){
-			this.panier.add(article);
-			article.setDisponible(false);
+	public void AddToCart(Article article){
+		if(article.isAvailable()){
+			this.cart.add(article);
 		}
 	}
 	
-	public void enleverDuPanier(Article article){
-		if(this.panier.contains(article)){
-			this.panier.remove(article);
-			article.setDisponible(true);
+	public void RemoveToCart(Article article){
+		if(this.cart.contains(article)){
+			this.cart.remove(article);
 		}
 	}
 }

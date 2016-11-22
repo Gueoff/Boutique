@@ -1,48 +1,29 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
-<title>Insert title here</title>
-</head>
-<body>
+<html ng-app="shopApp">
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<script src="script/menu.js"></script>
+	</head>
+
+	<body>
+		<div ng-include src="'head.html'"></div>
 
 
-
-<div class="row">
-
-<!-- FOR -->
-
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="images/soleil.jpg" alt="soleil">
-      <div class="caption">
-        <h2>Soleil<small> 300€</small></h2>
-        <p>Whao quel bonheur</p>
-        <p><a href="#" class="btn btn-default" role="button">Ajouter au panier</a></p>
-      </div>
-    </div>
-  </div>
-  
-  <!-- ENDFOR -->
-    <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="images/coeur.png" alt="coeur">
-      <div class="caption">
-        <h3>Coeur</h3>
-        <p>Whao quel bonheur</p>
-        <p><a href="#" class="btn btn-default" role="button">Ajouter au panier</a></p>
-      </div>
-    </div>
-  </div>
-  
-  
-  
-  
-</div>
-
-
-
+		<article>
+			<div class="row" ng-controller="ShopController as shop">
+			  <div class="col-sm-6 col-md-4"  ng-repeat="article in shop.articles">
+			    <div class="thumbnail">
+			      <img src="images/{{article.name}}.jpg" alt="{{article.name}}">
+			      <div class="caption">
+			        <h2>{{article.name}} <small> {{article.price}}€</small></h2>
+			        <p>{{article.description}}</p>
+			        <p> <form ng-submit="shop.addToCart()"><a href="panier.html" class="btn btn-default" role="button">Ajouter au panier</a> </form></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</article>
 
 
 </body>

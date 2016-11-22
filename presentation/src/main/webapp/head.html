@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="shopApp">
+	<head>
+		<meta charset="UTF-8">
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<script src="script/menu.js"></script>
+		<link href="css/style.css" rel="stylesheet" media="screen">
+		<title>Shop</title>
+	</head>
+
+<body>
+	<div class="page-header">
+  		<h1>Boutique2Ouf<small>lalala</small></h1>
+	</div>
+	
+	<ul class="nav nav-tabs" >
+		<li role="presentation" class="dropdown">
+  			<a class="dropdown-toggle" data-toggle="dropdown" href="index.html" role="button" aria-haspopup="true" aria-expanded="false">
+      			Accueil
+    		</a>
+  		</li>
+	
+	
+		<li role="presentation" class="dropdown" ng-controller="MenuController as menu">
+    		<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-click="menu.derouler()">
+      			Articles <span class="caret"></span>
+    		</a>
+    		<ul class="" ng-repeat="type in menu.types">
+    			<a href="article.html?type={{type.name}}"><li role="presentation" class="dropdown">{{type.name}}</li></a>
+    		</ul>	
+  		</li>
+  		
+  		
+  		<li role="presentation" class="dropdown">
+  			<a class="dropdown-toggle" data-toggle="dropdown" href="panier.html" role="button" aria-haspopup="true" aria-expanded="false">
+      			Pannier
+    		</a>
+  		</li>	
+	</ul>

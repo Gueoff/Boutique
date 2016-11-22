@@ -26,14 +26,11 @@ public class ArticleDAO extends DAOImpl<Article>{
 				typeArticleDao.create(obj.getType());
 			}
 			
-			PreparedStatement prepare = this.connect
-					.prepareStatement("INSERT INTO article (nom, description, prix, disponible, id_type) VALUES(?,?,?,?, (SELECT id_type from typeArticle where typeArticle.nom_type = '"+ obj.getType().name()+"' )) ");
-			
-			
-			prepare.setString(1, obj.getNom());
+			PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO article (name, description, price, available, id_type) VALUES(?,?,?,?, (SELECT id_type from typeArticle where typeArticle.name_type = '"+ obj.getType().name()+"' )) ");
+			prepare.setString(1, obj.getName());
 			prepare.setString(2, obj.getDescription());
-			prepare.setDouble(3, obj.getPrix());
-			prepare.setBoolean(4, obj.isDisponible());
+			prepare.setDouble(3, obj.getPrice());
+			prepare.setBoolean(4, obj.isAvailable());
 
 			prepare.executeUpdate();
 			
@@ -73,8 +70,8 @@ public class ArticleDAO extends DAOImpl<Article>{
 							"SELECT * FROM article, typeArticle WHERE article.id_type = typeArticle.id_type AND id =" + id );
 
 			if (result.first()) {
-				TypeArticle type = TypeArticle.valueOf(result.getString("nom_type"));
-				article = new Article(id, result.getString("nom"), result.getString("description"), result.getLong("prix"), result.getBoolean("disponible"), type);
+				TypeArticle type = TypeArticle.valueOf(result.getString("name_type"));
+				article = new Article(id, result.getString("name"), result.getString("description"), result.getLong("price"), result.getBoolean("available"), type);
 
 			}
 		} catch (SQLException e) {

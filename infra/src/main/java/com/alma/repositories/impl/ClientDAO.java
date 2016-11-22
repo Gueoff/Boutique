@@ -18,10 +18,10 @@ public class ClientDAO extends DAOImpl<Client>{
 	public Client create(Client obj) {
 		try {
 			PreparedStatement prepare = this.connect
-					.prepareStatement("INSERT INTO client (nom, prenom, age, email) VALUES(?,?,?,?)");
+					.prepareStatement("INSERT INTO client (name, firstname, age, email) VALUES(?,?,?,?)");
 
-			prepare.setString(1, obj.getNom());
-			prepare.setString(2, obj.getPrenom());
+			prepare.setString(1, obj.getName());
+			prepare.setString(2, obj.getFirstname());
 			prepare.setInt(3, obj.getAge());
 			prepare.setString(4, obj.getEmail());
 
@@ -63,7 +63,7 @@ public class ClientDAO extends DAOImpl<Client>{
 							"SELECT * FROM client WHERE email ='" + id +"'");
 
 			if (result.first()) {
-				client = new Client(result.getString("nom"), result.getString("prenom"), result.getInt("age"), id);
+				client = new Client(result.getString("name"), result.getString("firstname"), result.getInt("age"), id);
 
 			}
 		} catch (SQLException e) {

@@ -15,9 +15,7 @@ public class TypeArticleDAO  extends DAOImpl<TypeArticle>{
 
 	public TypeArticle create(TypeArticle obj) {
 		try {
-			PreparedStatement prepare = this.connect
-					.prepareStatement("INSERT INTO typeArticle (nom_type) VALUES(?)");
-			
+			PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO typeArticle (name_type) VALUES(?)");
 			prepare.setString(1, obj.name());
 			prepare.executeUpdate();
 			
@@ -51,13 +49,14 @@ public class TypeArticleDAO  extends DAOImpl<TypeArticle>{
 							"SELECT * FROM typeArticle WHERE id_type ='" + id +"'");
 
 			if (result.first()) {
-				type = TypeArticle.valueOf(result.getString("nom_type"));
+				type = TypeArticle.valueOf(result.getString("name_type"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return type;
 	}
+	
 	
 	public TypeArticle find(String id) {		
 		TypeArticle type = null;
@@ -68,10 +67,10 @@ public class TypeArticleDAO  extends DAOImpl<TypeArticle>{
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY)
 					.executeQuery(
-							"SELECT * FROM typeArticle WHERE nom_type ='" + id +"'");
+							"SELECT * FROM typeArticle WHERE name_type ='" + id +"'");
 
 			if (result.first()) {
-				type = TypeArticle.valueOf(result.getString("nom_type"));
+				type = TypeArticle.valueOf(result.getString("name_type"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

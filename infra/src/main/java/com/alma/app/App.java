@@ -15,9 +15,9 @@ public class App {
 	public static void main(String[] args) {
 		
 		//Création des données
-		/*Connexion.drop();
-		Connexion.creationBDD();
-		Connexion.insertionTables();*/
+		//Connexion.drop();
+		Connexion.create();
+		Connexion.createTable();
 		Connexion.use();
 	
 		DAOFactory factory = new DAOFactoryImpl();
@@ -25,18 +25,16 @@ public class App {
 		DAO<Article> articleDao = factory.getArticleDAO();
 		DAO<TypeArticle> typeArticleDao = factory.getTypeArticleDAO();
 		
-		/*TypeArticle type = TypeArticle.veste;
-		typeArticleDao.create(type);
-		type = typeArticleDao.find(1);
-		System.out.println(type);*/
 
-		//clientDao.create(new Client("geof","desb",22,"g@d"));
+
+		clientDao.create(new Client("geof","desb",22,"g@d"));
 		articleDao.create(new Article("pull over magueule","un pull bien chaud",39.99, TypeArticle.pull));
-		Article a = articleDao.find(6);
-		System.out.println(a.getNom()+a.getType()+a.getId());
 		
-		//Client x = clientDao.find("g@d");
-		//System.out.println(x.getNom());
+		Article a = articleDao.find(1);
+		System.out.println(a.getName()+a.getType()+a.getId());
+		
+		Client x = clientDao.find("g@d");
+		System.out.println(x.getName());
 		 		
 	}
 
