@@ -11,14 +11,14 @@
 
 
 		<article>
-			<div class="row" ng-controller="ShopController as shop">
-			  <div class="col-sm-6 col-md-4"  ng-repeat="article in shop.articles">
+			<div class="row" ng-controller="ShopController">
+			  <div class="col-sm-6 col-md-4"  ng-repeat="article in articles">
 			    <div class="thumbnail">
 			      <img src="images/{{article.name}}.jpg" alt="{{article.name}}">
 			      <div class="caption">
 			        <h2>{{article.name}} <small> {{article.price}}€</small></h2>
 			        <p>{{article.description}}</p>
-			        <p> <form ng-submit="shop.addToCart()"><a href="panier.html" class="btn btn-default" role="button">Ajouter au panier</a> </form></p>
+			        <p> <form ng-submit="addToCart()"><a href="#" class="btn btn-default" role="button">Ajouter au panier</a> </form></p>
 			      </div>
 			    </div>
 			  </div>
