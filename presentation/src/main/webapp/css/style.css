@@ -5,3 +5,33 @@ article{
 li{
 	list-style : none;
 }
+
+
+.type{
+	position:absolute;
+	margin-left:15%;
+}
+.index{
+	margin-left:5%;
+}
+
+.cart{
+	right:0;
+	margin-right:5%;
+	position:absolute;
+	width:20%;
+	min-width:200px;
+}
+
+.cartDesc{
+	border: 1px solid gray;
+	padding:10%;
+	border-radius: 10px;
+	background-color: white;
+	}
+	
+.price{
+	position:absolute;
+	right:0;
+	margin-right:10%;
+	}

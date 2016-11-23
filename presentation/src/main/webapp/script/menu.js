@@ -8,22 +8,22 @@
           {name:'pull'},
           {name:'jean'}];
           
-          
-        $scope.derouler = function(){
-			if($scope.actif){
-				$scope.actif = false;
+        $scope.showType = function(){
+			if($scope.typeActif){
+				$scope.typeActif = false;
 			}
 			else{
-				$scope.actif = true;
+				$scope.typeActif = true;
 			}
-			
-		}
-          
-      	}]) //END CONTROLLER
+		} 
+     }]) //END CONTROLLER
 
 
 	.controller('ShopController', ['$scope', '$http', function($scope, $http){
-		$scope.cart = [];
+		
+		$scope.cart= [
+            {name:'nom du truc', price:3, type:'pull'},
+            {name:'deuxieme truc', price:5, type:'pull'}];
 		
 		$scope.articles = [
 			{name: 'pull over', price:3, type:'pull'},
@@ -31,10 +31,28 @@
 		];
 
 
-
+	 $scope.showCart = function(){
+			if($scope.cartActif){
+				$scope.cartActif = false;
+			}
+			else{
+				$scope.cartActif = true;
+			}
+		}
+		
+		$scope.getTotal = function(){
+    		var total = 0;
+    		for(var i = 0; i < $scope.cart.length; i++){
+        		var product = $scope.cart[i];
+        		total += (product.price);
+    		}
+    		return total;
+		}
 	
-    	$scope.addToCart = function() {
-     		 articles.push({name:'hey', price:90, type:'lol'});
+    	$scope.addToCart = function(index) {
+     		alert($scope.articles[index].name);
+     		$scope.cart.push($scope.articles[index]);
+     		
     	}
 
 

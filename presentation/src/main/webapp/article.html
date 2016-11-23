@@ -18,7 +18,7 @@
 			      <div class="caption">
 			        <h2>{{article.name}} <small> {{article.price}}€</small></h2>
 			        <p>{{article.description}}</p>
-			        <p> <form ng-submit="addToCart()"><a href="#" class="btn btn-default" role="button">Ajouter au panier</a> </form></p>
+			        <p><a href="#" class="btn btn-default" role="button" ng-click="addToCart($index)">Ajouter au panier</a></p>
 			      </div>
 			    </div>
 			  </div>
