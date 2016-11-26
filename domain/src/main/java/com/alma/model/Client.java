@@ -75,5 +75,9 @@ public class Client implements IClient{
 		}
 	}
 	
+	public void buy(){
+		
+	}
+	
 	
 }
