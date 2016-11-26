@@ -2,16 +2,88 @@
 <html ng-app="shopApp">
 	<head>
 		<meta charset="UTF-8">
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-		<script src="script/menu.js"></script>
+		<script src="script/app.js"></script>
+		<link href="css/style.css" rel="stylesheet" media="screen">
+		<title>Shop</title>
 	</head>
 
-	<body>
-		<div ng-include src="'head.html'"></div>
+	<body ng-controller="ShopController">
 
-		<article>Welcome !</article>
-	</body> 
+
+		<!-- Header -->
+		<div class="page-header">
+	  		<h1>Boutique2Ouf<small>lalala</small></h1>
+	  		
+	  		<nav class="navbar navbar-default connection" ng-controller="LoginController">
+	  			<div ng-if="currentUser">Welcome, {{ currentUser.name }}</div>
+	  			<div class="container-fluid">
+			  		<form method="post" id="signin" class="navbar-form navbar-right" role="form" ng-submit="login(credentials)">
+			        	<div class="input-group">
+			            	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			                <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address" ng-model="credentials.username">                                        
+			            </div>
+						<div class="input-group">
+			            	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			                <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password" ng-model="credentials.password">                                        
+			            </div>
+						<button type="submit" class="btn btn-primary">Login</button>
+					</form>	
+				</div>
+			</nav>	
+		</div>
 	
 	
-
+	
+		<!-- Menu bar -->
+		<ul class="nav nav-tabs" data-ng-controller="MenuController">
+			<li role="presentation" class="dropdown type" >
+	    		<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-click="showType()">
+	      			Articles <span class="caret"></span>
+	    		</a>
+	    		<div class="typeDesc" ng-show="typeActif">
+	    			<ul ng-repeat="type in types">
+		    			<a href="index.html?type={{type.name}}"><li role="presentation" class="dropdown">{{type.name}}</li></a>
+		    		</ul>	
+	    		</div>
+	  		</li>
+	
+	  		<li role="presentation" class="dropdown cart" >
+	  			<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-click="showCart()">
+	      			Pannier
+	    		</a>
+	    		<div class="cartDesc" ng-show="cartActif">
+		    		<ul ng-repeat="article in cart">
+		    			<li><h5>{{article.name}}<small class="price"> {{article.price}}€</small></h5></li>
+		    		</ul>
+		    		<hr>
+					<ul>
+		    			<li><h5>Total : <small class="price">{{ getTotal() }}€</small></h5></li>
+		    			<li><a href="#" class="btn btn-default" role="button">Valider panier</a></li>
+		    		</ul>
+	    		</div>	
+	  		</li>
+	  	</ul>	
+	
+	
+	
+	
+		<!-- Liste des articles -->
+		<article>
+			<div class="row">
+			  <div class="col-sm-6 col-md-4"  ng-repeat="article in articles">
+			    <div class="thumbnail">
+			      <img src="images/{{article.name}}.jpg" alt="{{article.name}}">
+			      <div class="caption">
+			        <h2>{{article.name}} <small> {{article.price}}€</small></h2>
+			        <p>{{article.description}}</p>
+			        <p><a href="#" class="btn btn-default" role="button" ng-click="addToCart($index)">Ajouter au panier</a></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</article>
+	</body>
 </html>

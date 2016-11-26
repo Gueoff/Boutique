@@ -5,14 +5,19 @@ article{
 li{
 	list-style : none;
 }
+.page-header{
+	margin-bottom:5%;
+}
 
-
+.connection{
+	position:absolute;
+	right:0;
+	top:0;
+	margin-right:2%;
+}
 .type{
 	position:absolute;
-	margin-left:15%;
-}
-.index{
-	margin-left:5%;
+	margin-left:2%;
 }
 
 .cart{
@@ -23,7 +28,7 @@ li{
 	min-width:200px;
 }
 
-.cartDesc{
+.cartDesc, .typeDesc{
 	border: 1px solid gray;
 	padding:10%;
 	border-radius: 10px;
