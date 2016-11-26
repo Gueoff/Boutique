@@ -1,7 +1,7 @@
 package com.alma.model;
 
 
-public class Article {
+public class Article implements IArticle{
 
 	private int id;
 	private String name;

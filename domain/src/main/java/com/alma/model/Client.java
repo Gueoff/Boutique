@@ -1,7 +1,7 @@
 package com.alma.model;
 
 
-public class Client {
+public class Client implements IClient{
 
 	private String name;
 	private String firstname;
@@ -63,15 +63,17 @@ public class Client {
 		this.cart = cart;
 	}
 
-	public void AddToCart(Article article){
+	public void addToCart(Article article){
 		if(article.isAvailable()){
 			this.cart.add(article);
 		}
 	}
 	
-	public void RemoveToCart(Article article){
+	public void removeToCart(Article article){
 		if(this.cart.contains(article)){
 			this.cart.remove(article);
 		}
 	}
+	
+	
 }

@@ -19,8 +19,8 @@ public class Connexion {
 	
 	private Connexion() {
 		try {
-			connect = DriverManager.getConnection(String.format("jdbc:mysql://localhost:%s/root?user=root&password=root", this.PORT));		
-			//connect = DriverManager.getConnection(connection, user, pwd);
+			//connect = DriverManager.getConnection(String.format("jdbc:mysql://localhost:%s/root?user=root&password=root", this.PORT));		
+			connect = DriverManager.getConnection(connection, user, pwd);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

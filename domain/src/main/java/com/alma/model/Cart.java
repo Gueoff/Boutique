@@ -2,7 +2,7 @@ package com.alma.model;
 
 import java.util.ArrayList;
 
-public class Cart extends ArrayList<Article>{
+public class Cart extends ArrayList<Article> implements ICart{
 
 	/**
 	 * 

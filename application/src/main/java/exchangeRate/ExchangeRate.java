@@ -2,6 +2,8 @@ package exchangeRate;
 
 import javax.xml.soap.*;
 
+import com.alma.services.IExchangeRate;
+
 /**
  * 
  * Liste des pays : AUD BGN BRL CAD CHF CNY CYP CZK DKK EEK EUR GBP HKD HRK HUF IDR ILS INR ISK JPY KRW LTL LVL MTL MXN MYR NOK NZD PHP PLN RON RUB SEK SGD SIT SKK THB TRY USD ZAR
