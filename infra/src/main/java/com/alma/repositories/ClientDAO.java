@@ -1,4 +1,4 @@
-package com.alma.repositories.impl;
+package com.alma.repositories;
 
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import com.alma.model.Client;
 
 
-public class ClientDAO extends DAOImpl<Client>{
+public class ClientDAO extends DAO<Client>{
 
 	public ClientDAO(Connection conn) {
 		super(conn);
@@ -53,7 +53,7 @@ public class ClientDAO extends DAOImpl<Client>{
 
 	@Override
 	public Client find(String id) {		
-		Client client = new Client();
+		Client client = null;
 		
 		try {			
 			ResultSet result = this.connect.createStatement(

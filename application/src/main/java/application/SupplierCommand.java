@@ -3,37 +3,34 @@ package application;
 import java.util.Collection;
 
 import com.alma.factories.DAOFactory;
-import com.alma.factories.POJOFactory;
-import com.alma.factories.impl.DAOFactoryImpl;
-import com.alma.factories.impl.POJOFactoryImpl;
+import com.alma.factories.IDAOFactory;
+import com.alma.factories.SupplierStub;
 import com.alma.model.Article;
 import com.alma.model.IArticle;
-import com.alma.repositories.DAO;
+import com.alma.repositories.IDAO;
+import com.alma.services.ISupplier;
 import com.alma.services.ISupplierCommand;
 
 public class SupplierCommand implements ISupplierCommand{
 
-	private POJOFactory factory = new POJOFactoryImpl();
+	private ISupplier factory = new SupplierStub();
 	
 	@Override
 	public void buy(IArticle article) {
-		Article articleImpl = factory.getArticle(article);
-		
-		DAOFactory factoryDao = new DAOFactoryImpl();
-		DAO<Article> articleDao =  factoryDao.getArticleDAO();
-		articleDao.create(articleImpl);		
+		if(factory.buy(article)){
+			Article articleImpl = (Article) article; 
+			
+			IDAOFactory factoryDao = new DAOFactory();
+			IDAO<Article> articleDao =  factoryDao.createArticleDAO();
+			articleDao.create(articleImpl);
+		}
 	}
 
 	@Override
 	public void buy(Collection<IArticle> articles) {
-		DAOFactory factoryDao = new DAOFactoryImpl();
-		DAO<Article> articleDao =  factoryDao.getArticleDAO();
-		
 		for(IArticle iarticle : articles){
-			Article articleImpl = factory.getArticle(iarticle);
-			articleDao.create(articleImpl);
+			this.buy(iarticle);
 		}
-
 	}
 
 	@Override

@@ -1,14 +1,14 @@
-package com.alma.repositories.impl;
+package com.alma.repositories;
 
 import java.sql.Connection;
 
-import com.alma.repositories.DAO;
+import com.alma.repositories.IDAO;
 
-public class DAOImpl<T> implements DAO<T>{
+public class DAO<T> implements IDAO<T>{
 	
 	protected Connection connect = null;
 	
-	public DAOImpl(Connection conn){
+	public DAO(Connection conn){
 	this.connect = conn;
 	}
 

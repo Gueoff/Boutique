@@ -1,4 +1,4 @@
-package com.alma.repositories.impl;
+package com.alma.repositories;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.alma.factories.DAOFactory;
-import com.alma.factories.impl.DAOFactoryImpl;
+import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
 import com.alma.model.TypeArticle;
-import com.alma.repositories.DAO;
+import com.alma.repositories.IDAO;
 
-public class ArticleDAO extends DAOImpl<Article>{
+public class ArticleDAO extends DAO<Article>{
 
 	public ArticleDAO(Connection conn) {
 		super(conn);
@@ -20,8 +20,8 @@ public class ArticleDAO extends DAOImpl<Article>{
 	public Article create(Article obj) {
 		try {
 			
-			DAOFactory factory = new DAOFactoryImpl();
-			DAO<TypeArticle> typeArticleDao =  factory.getTypeArticleDAO();
+			IDAOFactory factory = new DAOFactory();
+			IDAO<TypeArticle> typeArticleDao =  factory.createTypeArticleDAO();
 			if(typeArticleDao.find(obj.getType().name()) == null){
 				typeArticleDao.create(obj.getType());
 			}
@@ -60,7 +60,7 @@ public class ArticleDAO extends DAOImpl<Article>{
 
 	@Override
 	public Article find(int id) {		
-		Article article = new Article();
+		Article article = null;
 		
 		try {
 			ResultSet result = this.connect.createStatement(

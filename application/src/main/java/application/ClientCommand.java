@@ -6,59 +6,59 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
 import com.alma.factories.DAOFactory;
-import com.alma.factories.POJOFactory;
-import com.alma.factories.impl.DAOFactoryImpl;
-import com.alma.factories.impl.POJOFactoryImpl;
+import com.alma.factories.IDAOFactory;
+import com.alma.factories.SupplierStub;
 import com.alma.model.Article;
 import com.alma.model.Cart;
 import com.alma.model.Client;
 import com.alma.model.IArticle;
 import com.alma.model.ICart;
 import com.alma.model.IClient;
-import com.alma.repositories.DAO;
+import com.alma.repositories.IDAO;
 import com.alma.services.IClientCommand;
+import com.alma.services.ISupplier;
 
 @WebService(endpointInterface = "application.ClientCommand")
 @SOAPBinding(style = Style.RPC)
 public class ClientCommand implements IClientCommand{
 	
-	private POJOFactory factory = new POJOFactoryImpl();
+	private ISupplier factory = new SupplierStub();
 
 	@Override
 	@WebMethod(exclude = true)
 	public void buy(IClient client, ICart cart) {
-		Client clientImpl = factory.getClient(client);
-		Cart cartImpl = factory.getCart(cart);
+		Client clientImpl =(Client) client;
+		Cart cartImpl = (Cart) cart;
 		clientImpl.setCart(cartImpl);
 		clientImpl.buy(); //A implementer en appelant service distant de CB
 		
-		DAOFactory factoryDao = new DAOFactoryImpl();
-		DAO<Article> articleDao =  factoryDao.getArticleDAO();
-		for(Article article : cartImpl){
-			articleDao.delete(article);
+		IDAOFactory factoryDao = new DAOFactory();
+		IDAO<Article> articleDao =  factoryDao.createArticleDAO();
+		for(IArticle article : cartImpl){
+			articleDao.delete((Article) article);
 			cartImpl.remove(article);
 		}
 	}
 
 	@WebMethod
 	public void addToCart(Client client, Article article) {
-		Client c = factory.getClient(client);
-		Article a = factory.getArticle(article);
+		Client c = (Client) client;
+		Article a = (Article) article;
 		c.addToCart(a);
 	}
 
 	@Override
 	@WebMethod(exclude = true)
 	public void removeToCart(IClient client, IArticle article) {
-		Client c = factory.getClient(client);
-		Article a = factory.getArticle(article);
+		Client c = (Client) client;
+		Article a = (Article) article;
 		c.removeToCart(a);
 	}
 
 	@Override
 	@WebMethod(exclude = true)
 	public void clearCart(IClient client) {
-		Client c = factory.getClient(client);
+		Client c = (Client) client;
 		c.getCart().clear();
 	}
 

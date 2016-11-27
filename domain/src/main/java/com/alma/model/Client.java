@@ -1,27 +1,85 @@
 package com.alma.model;
 
-
+/**
+ * shop's client
+ * 
+ * @author Léo Cassiau, Geoffrey Desbrosses
+ * @version 0.0.1
+ */
 public class Client implements IClient{
 
+	/**
+	 * client's lastname
+	 */
 	private String name;
-	private String firstname;
-	private int age;
-	private String email;
-	private Cart cart = new Cart();
-	
-	
 
+	/**
+	 * client's firstname
+	 */
+	private String firstname;
+
+	/**
+	 * client's age
+	 */
+	private int age;
+
+	/**
+	 * client's email
+	 */
+	private String email;
+
+	/**
+	 * client's cart of the shop
+	 */
+	private ICart cart = new Cart();
+
+	/**
+	 * constructor
+	 * 
+	 * @param name client's lastname
+	 * @param firstname client's firstname
+	 * @param age client's age
+	 * @param email client's email
+	 */
 	public Client(String name, String firstname, int age, String email) {
-		super();
 		setName(name);
 		setFirstname(firstname);
 		setAge(age);
 		setEmail(email);
 	}
-	
-	public Client() {
+
+	/**
+	 * Add an article in the client's cart
+	 * 
+	 * @param article article added in the client's cart
+	 */
+	public void addToCart(IArticle article) {
+		if (article.isAvailable()) {
+			this.cart.add(article);
+		}
 	}
-	
+
+	/**
+	 * Remove an article of the client's cart
+	 * 
+	 * @param article article removed of the client's cart
+	 */
+	public void removeToCart(IArticle article) {
+		if (this.cart.contains(article)) {
+			this.cart.remove(article);
+		}
+	}
+
+	/**
+	 * buy all elements in the cart
+	 */
+	public void buy(){
+		for(IArticle a : cart) {
+			a.setAvailable(false);
+		}
+		// TODO A PLUS DARGENT
+		cart = new Cart();
+	}
 
 	public String getName() {
 		return name;
@@ -55,29 +113,12 @@ public class Client implements IClient{
 		this.email = email;
 	}
 
-	public Cart getCart() {
+	public ICart getCart() {
 		return cart;
 	}
 
-	public void setCart(Cart cart) {
+	public void setCart(ICart cart) {
 		this.cart = cart;
 	}
 
-	public void addToCart(Article article){
-		if(article.isAvailable()){
-			this.cart.add(article);
-		}
-	}
-	
-	public void removeToCart(Article article){
-		if(this.cart.contains(article)){
-			this.cart.remove(article);
-		}
-	}
-	
-	public void buy(){
-		
-	}
-	
-	
 }

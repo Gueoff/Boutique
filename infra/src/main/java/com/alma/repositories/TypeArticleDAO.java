@@ -1,4 +1,4 @@
-package com.alma.repositories.impl;
+package com.alma.repositories;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import com.alma.model.TypeArticle;
 
-public class TypeArticleDAO  extends DAOImpl<TypeArticle>{
+public class TypeArticleDAO  extends DAO<TypeArticle>{
 
 	public TypeArticleDAO(Connection conn) {
 		super(conn);

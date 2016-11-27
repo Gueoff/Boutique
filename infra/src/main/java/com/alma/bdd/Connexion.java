@@ -15,8 +15,6 @@ public class Connexion {
 	private static Connection connect = null;
 	private static final String PORT = System.getProperty("mysql.port");
 	
-	
-	
 	private Connexion() {
 		try {
 			//connect = DriverManager.getConnection(String.format("jdbc:mysql://localhost:%s/root?user=root&password=root", this.PORT));		

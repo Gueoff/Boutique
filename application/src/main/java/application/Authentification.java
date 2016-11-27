@@ -1,9 +1,9 @@
 package application;
 
 import com.alma.factories.DAOFactory;
-import com.alma.factories.impl.DAOFactoryImpl;
+import com.alma.factories.IDAOFactory;
 import com.alma.model.Client;
-import com.alma.repositories.DAO;
+import com.alma.repositories.IDAO;
 
 import javax.jws.*;
 import javax.jws.soap.SOAPBinding;
@@ -21,8 +21,8 @@ public class Authentification {
 	public boolean login(String login, String password){
 		logger.info("Authentification, login : " + login);
 		
-		DAOFactory factory = new DAOFactoryImpl();
-		DAO<Client> clientDao =  factory.getClientDAO();
+		IDAOFactory factory = new DAOFactory();
+		IDAO<Client> clientDao =  factory.createClientDAO();
 		Client client = clientDao.find(login);
 		if(client.getName() == null){
 			return false;
@@ -33,8 +33,8 @@ public class Authentification {
 	public void logup(Client client){
 		logger.info("Test2");
 
-		DAOFactory factory = new DAOFactoryImpl();
-		DAO<Client> clientDao =  factory.getClientDAO();
+		IDAOFactory factory = new DAOFactory();
+		IDAO<Client> clientDao =  factory.createClientDAO();
 		clientDao.create(client);
 	}
 	
