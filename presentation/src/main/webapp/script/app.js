@@ -1,6 +1,9 @@
+	const config ={
+	    urlClient : "http://localhost:8080/application/clientcommand",
+	    urlSupplier : "",
+	};
 
-
-    angular.module('shopApp', [])
+    angular.module('shopApp', ['angularSoap'])
     
     
     .controller('MenuController',['$scope', function($scope) {
@@ -28,16 +31,16 @@
      }]) //END CONTROLLER
 
 
-	.controller('ShopController', ['$scope', '$http', 'USER_ROLES', 'AuthService', function($scope, $http, USER_ROLES, AuthService){
+	.controller('ShopController', ['$scope', '$http', 'USER_ROLES', 'AuthService', 'clientService', function($scope, $http, USER_ROLES, AuthService, clientService){
 		//VARIABLES
-		$scope.cart= [
-            {name:'nom du truc', price:3, type:'pull'},
-            {name:'deuxieme truc', price:5, type:'pull'}
-        ];
+		$scope.cart = [
+		    {name: 'coyote', description:'', price:3, available:true, type:'pull'},
+		    {name: 'pantalon', description:'', price:6, available:true, type:'jean'}
+		];
 		
 		$scope.articles = [
-			{name: 'pull over', price:3, type:'pull'},
-			{name: 'jean magueule', price:6, type:'jean'}
+			{name: 'pull over',   description:'ptite description', price:3, available:true, type:'pull'},
+			{name: 'jean magueule',  description:'', price:6, available:true, type:'jean'}
 		];
 		
         $scope.types = [
@@ -45,7 +48,9 @@
             {name:'jean'}
         ];
         
-    	$scope.currentUser = null;
+        //mock
+        $scope.currentUser = {name:'desbrosses', firstname:'geoffrey', age:22, email:'g@d.com',cart: $scope.cart};
+    	//$scope.currentUser = null;
     	$scope.userRoles = USER_ROLES;
     	$scope.isAuthorized = AuthService.isAuthorized;
     	
@@ -59,18 +64,45 @@
     		return total;
 		}
 	
-    	$scope.addToCart = function(index) {
-     		alert($scope.articles[index].name);
-     		$scope.cart.push($scope.articles[index]);
-     		
-    	}
 
     	$scope.setCurrentUser = function (user) {
     		$scope.currentUser = user;
     	};
+    	
+    	
+    	$scope.addToCart = function(index) {
+    		clientService.addToCart($scope.currentUser, $scope.articles[index])
+    			.then(function(response){
+    				$scope.response = response;
+    				$scope.cart.push($scope.articles[index]);
+    	  	}, function(){
+    	  			alert("Something went wrong!");
+    		});
+    	}
+    	
+    	
 
 
 	}]) //END CONTROLLER
+	
+	
+	.factory("clientService", ['$soap',function($soap){
+
+	    return {
+	        addToCart: function(client, article){
+	            var params = new SOAPClientParameters();
+	            params.add('client', client);
+	            params.add('article', article);
+	            return $soap.post(config.urlClient,"addToCart",params);
+	        }
+	    }
+	}])
+
+	
+	
+	
+	
+	
 
 	.controller('LoginController', ['$scope', '$rootScope','AUTH_EVENTS','AuthService', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
 		$scope.credentials = {
