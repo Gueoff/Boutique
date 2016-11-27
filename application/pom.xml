@@ -8,6 +8,17 @@
   <artifactId>application</artifactId>
   <name>application</name>
   <description>couche application du ddd</description>
+  
+  <build>
+    <plugins>
+            <plugin>
+                <groupId>org.wso2.maven</groupId>
+                <artifactId>carbon-p2-plugin</artifactId>
+                <version>4.2.0</version>
+            </plugin>
+    </plugins>
+</build>
+
   <dependencies>
   	<dependency>
   		<groupId>groupe2</groupId>

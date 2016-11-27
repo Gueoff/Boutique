@@ -8,4 +8,16 @@
   <artifactId>infra</artifactId>
   <name>infra</name>
   <description>couche infra du ddd</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>groupe2</groupId>
+  		<artifactId>Api</artifactId>
+  		<version>0.0.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>groupe2</groupId>
+  		<artifactId>domain</artifactId>
+  		<version>0.0.1</version>
+  	</dependency>
+  </dependencies>
 </project>

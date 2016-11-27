@@ -3,7 +3,7 @@ package com.alma.services;
 import java.util.Collection;
 
 import com.alma.model.IArticle;
-
+ 
 public interface ISupplierCommand {
 
 	/**
@@ -17,4 +17,6 @@ public interface ISupplierCommand {
 	 * @param articles la liste des articles 
 	 */
 	public void buy(Collection<IArticle> articles);
+	
+	public Collection<IArticle> getSupplierArticles();
 }

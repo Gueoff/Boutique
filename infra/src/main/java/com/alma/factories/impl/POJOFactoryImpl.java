@@ -1,5 +1,8 @@
 package com.alma.factories.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import com.alma.factories.POJOFactory;
 import com.alma.model.Article;
 import com.alma.model.Cart;
@@ -35,6 +38,11 @@ public class POJOFactoryImpl implements POJOFactory{
 		return cart;
 	}
 
+	public Collection<IArticle> getArticles() {
+		Collection<IArticle> articles = new ArrayList<IArticle>();
+		articles.add(new Article());
+		return articles;
+	}
 	
 
 }

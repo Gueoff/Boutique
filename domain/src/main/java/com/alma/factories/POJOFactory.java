@@ -1,5 +1,7 @@
 package com.alma.factories;
 
+import java.util.Collection;
+
 import com.alma.model.Article;
 import com.alma.model.Cart;
 import com.alma.model.Client;
@@ -17,5 +19,7 @@ public interface POJOFactory {
 	public TypeArticle getTypeArticle();
 	
 	public Cart getCart(ICart icart);
+	
+	public Collection<IArticle> getArticles();
 	
 }

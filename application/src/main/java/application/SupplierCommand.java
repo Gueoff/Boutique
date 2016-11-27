@@ -36,4 +36,9 @@ public class SupplierCommand implements ISupplierCommand{
 
 	}
 
+	@Override
+	public Collection<IArticle> getSupplierArticles() {
+		return factory.getArticles();
+	}
+
 }
