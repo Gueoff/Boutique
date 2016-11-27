@@ -5,12 +5,24 @@ Inc.//DTD Web Application 2.3//EN"
 
 <web-app>
 
+	<filter>
+	  <filter-name>CorsFilter</filter-name>
+	  <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+	  <filter-name>CorsFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	
 	<listener>
 		<listener-class>
 			com.sun.xml.ws.transport.http.servlet.WSServletContextListener
 		</listener-class>
 	</listener>
-
+	
 	<servlet>
 		<servlet-name>testName</servlet-name>
 		<servlet-class>
@@ -40,5 +52,9 @@ Inc.//DTD Web Application 2.3//EN"
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
+	
+
+
+	
 	
 </web-app>
