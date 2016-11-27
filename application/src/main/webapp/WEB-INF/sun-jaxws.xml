@@ -6,4 +6,8 @@
       name="MonTest"
       implementation="application.Authentification"
       url-pattern="/test"/>
+   <endpoint 
+      name="ClientCommand"
+      implementation="application.ClientCommand"
+      url-pattern="/clientcommand"/>
 </endpoints>
