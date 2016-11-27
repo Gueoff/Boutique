@@ -1,39 +1,50 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>groupe2</groupId>
-    <artifactId>boutique</artifactId>
-    <version>0.0.1</version>
-  </parent>
-  <artifactId>application</artifactId>
-  <name>application</name>
-  <description>couche application du ddd</description>
-  
-  <build>
-    <plugins>
-            <plugin>
-                <groupId>org.wso2.maven</groupId>
-                <artifactId>carbon-p2-plugin</artifactId>
-                <version>4.2.0</version>
-            </plugin>
-    </plugins>
-</build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>groupe2</groupId>
+		<artifactId>boutique</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	
+	<artifactId>application</artifactId>
+	<name>application</name>
+	<description>couche application du ddd</description>
 
-  <dependencies>
-  	<dependency>
-  		<groupId>groupe2</groupId>
-  		<artifactId>Api</artifactId>
-  		<version>0.0.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>groupe2</groupId>
-  		<artifactId>domain</artifactId>
-  		<version>0.0.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>groupe2</groupId>
-  		<artifactId>infra</artifactId>
-  		<version>0.0.1</version>
-  	</dependency>
-  </dependencies>
+	<build>
+		<plugins>
+		
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+	<dependencies>
+	
+		<dependency>
+			<groupId>groupe2</groupId>
+			<artifactId>Api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>groupe2</groupId>
+			<artifactId>domain</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>groupe2</groupId>
+			<artifactId>infra</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<packaging>war</packaging>
 </project>

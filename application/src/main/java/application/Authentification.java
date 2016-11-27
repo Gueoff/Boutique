@@ -5,12 +5,19 @@ import com.alma.factories.impl.DAOFactoryImpl;
 import com.alma.model.Client;
 import com.alma.repositories.DAO;
 
+import javax.jws.*;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
+
 import org.apache.log4j.Logger;
 
+@WebService(endpointInterface = "Test")
+@SOAPBinding(style = Style.RPC)
 public class Authentification {
 
 	private static Logger logger = Logger.getLogger(Authentification.class.getName());
 
+	@WebMethod
 	public boolean login(String login, String password){
 		logger.info("Authentification, login : " + login);
 		
