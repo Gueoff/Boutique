@@ -4,10 +4,10 @@
   version="2.0">
   <endpoint
       name="MonTest"
-      implementation="application.Authentification"
+      implementation="com.alma.services.Authentification"
       url-pattern="/test"/>
    <endpoint 
       name="ClientCommand"
-      implementation="application.ClientCommand"
+      implementation="com.alma.services.ClientCommand"
       url-pattern="/clientcommand"/>
 </endpoints>

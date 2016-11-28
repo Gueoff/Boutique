@@ -11,7 +11,7 @@ import javax.jws.soap.SOAPBinding.Style;
 
 import org.apache.log4j.Logger;
 
-@WebService(endpointInterface = "application.Authentification")
+@WebService(endpointInterface = "com.alma.services.Authentification")
 @SOAPBinding(style = Style.RPC)
 public class Authentification {
 

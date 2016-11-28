@@ -19,15 +19,12 @@ import com.alma.model.Cart;
 import com.alma.model.Client;
 import com.alma.model.IArticle;
 import com.alma.model.ISupplier;
-import com.alma.model.Shop;
-import com.alma.model.ICart;
-import com.alma.model.IClient;
 import com.alma.model.TypeArticle;
 import com.alma.repositories.IDAO;
 
 import parser.ParserJSON;
 
-@WebService(endpointInterface = "application.ClientCommand")
+@WebService(endpointInterface = "com.alma.services.ClientCommand")
 @SOAPBinding(style = Style.RPC)
 public class ClientCommand implements IClientCommand{
 	

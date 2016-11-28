@@ -2,7 +2,7 @@ package com.alma.services;
 
 import java.util.Collection;
 
-import com.alma.model.IArticle;
+import com.alma.model.Article;
  
 public interface ISupplierCommand {
 
@@ -10,13 +10,13 @@ public interface ISupplierCommand {
 	 * Permet d'ajouter un article a la boutique en ligne
 	 * @param article l'article a ajouter 
 	 */
-	public void buy(IArticle article);
+	public void buy(Article article);
 	
 	/**
 	 * Permet d'ajouter une liste d'articles à la boutique en ligne
 	 * @param articles la liste des articles 
 	 */
-	public void buy(Collection<IArticle> articles);
+	public void buy(Collection<Article> articles);
 	
-	public Collection<IArticle> getSupplierArticles();
+	public Collection<Article> getSupplierArticles();
 }

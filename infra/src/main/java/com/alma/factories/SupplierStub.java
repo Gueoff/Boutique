@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.alma.model.Article;
-import com.alma.model.IArticle;
 import com.alma.model.TypeArticle;
 import com.alma.model.ISupplier;
 
@@ -17,13 +16,13 @@ import com.alma.model.ISupplier;
 public class SupplierStub implements ISupplier{
 
 	@Override
-	public boolean buy(IArticle iarticle) {
+	public boolean buy(Article iarticle) {
 		return true;
 	}
 
 	@Override
-	public Collection<IArticle> getArticles() {
-		Collection<IArticle> articles = new ArrayList<IArticle>();
+	public Collection<Article> getArticles() {
+		Collection<Article> articles = new ArrayList<Article>();
 		articles.add(new Article("Pull en cashemir", "Un superbe pull hyper doux", 250, TypeArticle.pull));
 		articles.add(new Article("Jean Levis", "Vient directement des USA", 119.99, TypeArticle.jean));
 		return articles;

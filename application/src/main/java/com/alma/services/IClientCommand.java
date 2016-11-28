@@ -3,12 +3,13 @@ package com.alma.services;
 import com.alma.model.Article;
 import com.alma.model.Cart;
 import com.alma.model.Client;
-import com.alma.model.Shop;
-import java.util.Collection;
-import java.util.List;
 
-import org.json.JSONArray;
-
+/**
+ * currency's converter
+ * 
+ * @author Léo Cassiau, Geoffrey Desbrosses
+ * @version 0.0.1
+ */
 public interface IClientCommand {
 		
 	/**
@@ -38,8 +39,17 @@ public interface IClientCommand {
 	 */
 	public void clearCart(Client client);
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getTypesArticle();
 	
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
 	public String getArticles(String type);
 
 }

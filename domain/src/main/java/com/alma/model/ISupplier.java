@@ -16,13 +16,13 @@ public interface ISupplier {
 	 * @param iarticle supplier's article
 	 * @return true if the article is available, else false
 	 */
-	public boolean buy(IArticle iarticle);
+	public boolean buy(Article iarticle);
 	
 	/**
 	 * get all available article of the supplier
 	 * 
 	 * @return article's list
 	 */
-	public Collection<IArticle> getArticles();
+	public Collection<Article> getArticles();
 	
 }

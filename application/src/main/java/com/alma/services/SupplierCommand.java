@@ -6,7 +6,6 @@ import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.factories.SupplierStub;
 import com.alma.model.Article;
-import com.alma.model.IArticle;
 import com.alma.model.ISupplier;
 import com.alma.repositories.IDAO;
 
@@ -15,7 +14,7 @@ public class SupplierCommand implements ISupplierCommand{
 	private ISupplier factory = new SupplierStub();
 	
 	@Override
-	public void buy(IArticle article) {
+	public void buy(Article article) {
 		if(factory.buy(article)){
 			Article articleImpl = (Article) article; 
 			
@@ -26,14 +25,14 @@ public class SupplierCommand implements ISupplierCommand{
 	}
 
 	@Override
-	public void buy(Collection<IArticle> articles) {
-		for(IArticle iarticle : articles){
-			this.buy(iarticle);
+	public void buy(Collection<Article> articles) {
+		for(Article article : articles){
+			this.buy(article);
 		}
 	}
 
 	@Override
-	public Collection<IArticle> getSupplierArticles() {
+	public Collection<Article> getSupplierArticles() {
 		return factory.getArticles();
 	}
 
