@@ -28,124 +28,127 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
-        <groupId>org.codehaus.sonar-plugins.dotnet</groupId>
-        <artifactId>maven-dotnet-plugin</artifactId>
-        <version>0.6</version>
-        <extensions>true</extensions>
-      </plugin>
-      
-            <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-<!--         <executions> -->
-<!--           <execution> -->
-<!--             <goals> -->
-<!--               <goal>reserve-network-port</goal> -->
-<!--             </goals> -->
-<!--             <configuration> -->
-<!--               <portNames> -->
-<!--                 <portName>mysql.port</portName> -->
-<!--               </portNames> -->
-<!--             </configuration> -->
-<!--           </execution> -->
-<!--         </executions> -->
-      </plugin>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-<!--         <executions> -->
-<!--           <execution> -->
-<!--             <goals> -->
-<!--               <goal>unpack</goal> -->
-<!--             </goals> -->
-<!--             <configuration> -->
-<!--               <artifactItems> -->
-<!--                 <artifactItem> -->
-<!--                   <groupId>com.jcabi</groupId> -->
-<!--                   <artifactId>mysql-dist</artifactId> -->
-<!--                   <version>5.6.14</version> -->
-<!--                   <classifier>${mysql.classifier}</classifier> -->
-<!--                   <type>zip</type> -->
-<!--                   <overWrite>false</overWrite> -->
-<!--                   <outputDirectory> -->
-<!--                     ${project.build.directory}/mysql-dist -->
-<!--                   </outputDirectory> -->
-<!--                 </artifactItem> -->
-<!--               </artifactItems> -->
-<!--             </configuration> -->
-<!--           </execution> -->
-<!--         </executions> -->
-      </plugin>
-<!--       <plugin> -->
-<!--         <groupId>com.jcabi</groupId> -->
-<!--         <artifactId>jcabi-mysql-maven-plugin</artifactId> -->
-<!--         <executions> -->
-<!--           <execution> -->
-<!--             <id>mysql-test</id> -->
-<!--             <goals> -->
-<!--               <goal>classify</goal> -->
-<!--               <goal>start</goal> -->
-<!--               <goal>stop</goal> -->
-<!--             </goals> -->
-<!--             <configuration> -->
-<!--               <port>${mysql.port}</port> -->
-<!--               <data>${project.build.directory}/mysql-data</data> -->
-<!--             </configuration> -->
-<!--           </execution> -->
-<!--         </executions> -->
-<!--       </plugin> -->
-      <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <systemPropertyVariables>
-            <mysql.port>${mysql.port}</mysql.port>
-          </systemPropertyVariables>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      
-      
-      
-      
-          
-        
+				<groupId>org.codehaus.sonar-plugins.dotnet</groupId>
+				<artifactId>maven-dotnet-plugin</artifactId>
+				<version>0.6</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<!-- <executions> -->
+				<!-- <execution> -->
+				<!-- <goals> -->
+				<!-- <goal>reserve-network-port</goal> -->
+				<!-- </goals> -->
+				<!-- <configuration> -->
+				<!-- <portNames> -->
+				<!-- <portName>mysql.port</portName> -->
+				<!-- </portNames> -->
+				<!-- </configuration> -->
+				<!-- </execution> -->
+				<!-- </executions> -->
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<!-- <executions> -->
+				<!-- <execution> -->
+				<!-- <goals> -->
+				<!-- <goal>unpack</goal> -->
+				<!-- </goals> -->
+				<!-- <configuration> -->
+				<!-- <artifactItems> -->
+				<!-- <artifactItem> -->
+				<!-- <groupId>com.jcabi</groupId> -->
+				<!-- <artifactId>mysql-dist</artifactId> -->
+				<!-- <version>5.6.14</version> -->
+				<!-- <classifier>${mysql.classifier}</classifier> -->
+				<!-- <type>zip</type> -->
+				<!-- <overWrite>false</overWrite> -->
+				<!-- <outputDirectory> -->
+				<!-- ${project.build.directory}/mysql-dist -->
+				<!-- </outputDirectory> -->
+				<!-- </artifactItem> -->
+				<!-- </artifactItems> -->
+				<!-- </configuration> -->
+				<!-- </execution> -->
+				<!-- </executions> -->
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>com.jcabi</groupId> -->
+			<!-- <artifactId>jcabi-mysql-maven-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>mysql-test</id> -->
+			<!-- <goals> -->
+			<!-- <goal>classify</goal> -->
+			<!-- <goal>start</goal> -->
+			<!-- <goal>stop</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <port>${mysql.port}</port> -->
+			<!-- <data>${project.build.directory}/mysql-data</data> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<mysql.port>${mysql.port}</mysql.port>
+					</systemPropertyVariables>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
 		</plugins>
 
 	</build>
 	<dependencies>
+	    <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>  
+        
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
-<dependency>
-    <groupId>log4j</groupId>
-    <artifactId>log4j</artifactId>
-    <version>1.2.17</version>
-</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>5.1.6</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
 
- <dependency>
-        <groupId>com.jcabi</groupId>
-        <artifactId>jcabi-aspects</artifactId>
-        <version>0.12</version>
-    </dependency>
+		<dependency>
+			<groupId>com.jcabi</groupId>
+			<artifactId>jcabi-aspects</artifactId>
+			<version>0.12</version>
+		</dependency>
 
 	</dependencies>
 	<modules>

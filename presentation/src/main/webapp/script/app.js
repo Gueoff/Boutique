@@ -44,8 +44,8 @@
 		];
 		
         $scope.types = [
-            {name:'pull'},
-            {name:'jean'}
+            {name:'tshirt'},
+            {name:'pantalon'}
         ];
         
         //mock
@@ -80,7 +80,14 @@
     		});
     	}
     	
-    	
+    	clientService.getTypesArticle()
+			.then(function(response){
+				console.log($scope.types);
+				$scope.types = angular.fromJson(response);
+				console.log($scope.types);
+			}, function(){
+				alert("Something went wrong!");
+			});
 
 
 	}]) //END CONTROLLER
@@ -94,6 +101,14 @@
 	            params.add('client', client);
 	            params.add('article', article);
 	            return $soap.post(config.urlClient,"addToCart",params);
+	        },
+	    
+	        getTypesArticle: function(){
+	            return $soap.post(config.urlClient,"getTypesArticle");
+	        },
+	        
+	        getArticles: function(type){
+	            return $soap.post(config.urlClient,"getArticles", type);
 	        }
 	    }
 	}])
