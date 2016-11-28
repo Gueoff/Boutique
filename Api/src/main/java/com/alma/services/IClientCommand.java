@@ -1,8 +1,12 @@
 package com.alma.services;
 
+import java.util.Collection;
+import java.util.List;
+
 import com.alma.model.IArticle;
 import com.alma.model.ICart;
 import com.alma.model.IClient;
+import com.alma.model.IShop;
 
 public interface IClientCommand {
 		
@@ -32,5 +36,9 @@ public interface IClientCommand {
 	 * @param client le client possédant le panier
 	 */
 	public void clearCart(IClient client);
+	
+	public IShop getShop();
+	
+	public String[] getTypesArticle();
 
 }

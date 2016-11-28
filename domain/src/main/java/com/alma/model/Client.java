@@ -113,8 +113,8 @@ public class Client implements IClient{
 		this.email = email;
 	}
 
-	public ICart getCart() {
-		return cart;
+	public Cart getCart() {
+		return (Cart) cart;
 	}
 
 	public void setCart(ICart cart) {
