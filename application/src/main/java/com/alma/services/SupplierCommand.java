@@ -1,4 +1,4 @@
-package application;
+package com.alma.services;
 
 import java.util.Collection;
 
@@ -7,9 +7,8 @@ import com.alma.factories.IDAOFactory;
 import com.alma.factories.SupplierStub;
 import com.alma.model.Article;
 import com.alma.model.IArticle;
+import com.alma.model.ISupplier;
 import com.alma.repositories.IDAO;
-import com.alma.services.ISupplier;
-import com.alma.services.ISupplierCommand;
 
 public class SupplierCommand implements ISupplierCommand{
 

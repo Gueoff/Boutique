@@ -1,4 +1,4 @@
-package application;
+package com.alma.services;
 
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
@@ -30,6 +30,7 @@ public class Authentification {
 		return true;
 	}
 	
+	@WebMethod
 	public void logup(Client client){
 		logger.info("Test2");
 
@@ -38,6 +39,7 @@ public class Authentification {
 		clientDao.create(client);
 	}
 	
+	@WebMethod(exclude = true)
 	public static void main(String[] args) {
 		Authentification a = new Authentification();
 		a.login("toto", "mo2pass");

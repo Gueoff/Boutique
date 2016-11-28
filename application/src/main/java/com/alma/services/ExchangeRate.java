@@ -1,19 +1,16 @@
-package exchangeRate;
+package com.alma.services;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import javax.xml.soap.*;
 
-import com.alma.services.IExchangeRate;
-
-/**
- * 
- * Liste des pays : AUD BGN BRL CAD CHF CNY CYP CZK DKK EEK EUR GBP HKD HRK HUF IDR ILS INR ISK JPY KRW LTL LVL MTL MXN MYR NOK NZD PHP PLN RON RUB SEK SGD SIT SKK THB TRY USD ZAR
- * 
- */
-
+@WebService(endpointInterface = "com.alma.services.ExchangeRate")
 public class ExchangeRate implements IExchangeRate {
 
 	private static final String webServiceUrl = "http://currencyconverter.kowabunga.net/converter.asmx";
 	
+	@WebMethod
+	@Override
 	public float convert(float amount, String from, String to) {
 		try {
 			// Create SOAP Connection
@@ -33,6 +30,7 @@ public class ExchangeRate implements IExchangeRate {
 		}
 	}
 	
+	@WebMethod(exclude = true)
     private static SOAPMessage createSOAPRequestConversionAmount(float amount, String from, String to) throws SOAPException {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage(); 
@@ -59,10 +57,12 @@ public class ExchangeRate implements IExchangeRate {
         return soapMessage;
     }
     
+	@WebMethod(exclude = true)
 	private static float readSOAPResponseConversionAmount(SOAPMessage m) throws SOAPException {
 		return Float.parseFloat(m.getSOAPBody().getChildNodes().item(0).getChildNodes().item(0).getChildNodes().item(0).getNodeValue());
 	}
     
+	@WebMethod
 	public static String getLastUpdateDate() {
 		try {
 			// Create SOAP Connection
@@ -82,6 +82,7 @@ public class ExchangeRate implements IExchangeRate {
 		}
 	}
 	
+	@WebMethod(exclude = true)
     private static SOAPMessage createSOAPRequestLastUpdateDate() throws SOAPException {
     	 MessageFactory messageFactory = MessageFactory.newInstance();
          SOAPMessage soapMessage = messageFactory.createMessage();
@@ -98,10 +99,12 @@ public class ExchangeRate implements IExchangeRate {
          return soapMessage;
     }
     
+	@WebMethod(exclude = true)
     private static String readSOAPResponseLastUpdateDate(SOAPMessage m) throws SOAPException {
 		return m.getSOAPBody().getChildNodes().item(0).getChildNodes().item(0).getChildNodes().item(0).getNodeValue();
     }
     
+	@WebMethod(exclude = true)
 	public static void main(String[] args) {
 		ExchangeRate t = new ExchangeRate();
 		System.out.println(t.convert(1, "USD", "EUR"));

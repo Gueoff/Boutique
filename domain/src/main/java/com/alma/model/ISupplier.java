@@ -1,8 +1,6 @@
-package com.alma.services;
+package com.alma.model;
 
 import java.util.Collection;
-
-import com.alma.model.IArticle;
 
 /**
  * Supplier of the shop

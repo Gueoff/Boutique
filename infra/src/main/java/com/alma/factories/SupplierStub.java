@@ -6,7 +6,7 @@ import java.util.Collection;
 import com.alma.model.Article;
 import com.alma.model.IArticle;
 import com.alma.model.TypeArticle;
-import com.alma.services.ISupplier;
+import com.alma.model.ISupplier;
 
 /**
  * Supplier stub use to simulate the supplier service

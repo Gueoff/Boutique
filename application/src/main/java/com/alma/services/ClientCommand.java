@@ -1,15 +1,12 @@
-package application;
+package com.alma.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPHeaderElement;
 
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
@@ -18,14 +15,10 @@ import com.alma.model.Article;
 import com.alma.model.Cart;
 import com.alma.model.Client;
 import com.alma.model.IArticle;
-import com.alma.model.ICart;
-import com.alma.model.IClient;
-import com.alma.model.IShop;
+import com.alma.model.ISupplier;
 import com.alma.model.Shop;
 import com.alma.model.TypeArticle;
 import com.alma.repositories.IDAO;
-import com.alma.services.IClientCommand;
-import com.alma.services.ISupplier;
 
 @WebService(endpointInterface = "application.ClientCommand")
 @SOAPBinding(style = Style.RPC)
@@ -35,7 +28,7 @@ public class ClientCommand implements IClientCommand{
 
 	@Override
 	@WebMethod(exclude = true)
-	public void buy(IClient client, ICart cart) {
+	public void buy(Client client, Cart cart) {
 		Client clientImpl =(Client) client;
 		Cart cartImpl = (Cart) cart;
 		clientImpl.setCart(cartImpl);
@@ -60,7 +53,7 @@ public class ClientCommand implements IClientCommand{
 
 	@Override
 	@WebMethod(exclude = true)
-	public void removeToCart(IClient client, IArticle article) {
+	public void removeToCart(Client client, Article article) {
 		Client c = (Client) client;
 		Article a = (Article) article;
 		c.removeToCart(a);
@@ -68,15 +61,9 @@ public class ClientCommand implements IClientCommand{
 
 	@Override
 	@WebMethod(exclude = true)
-	public void clearCart(IClient client) {
+	public void clearCart(Client client) {
 		Client c = (Client) client;
 		c.getCart().clear();
-	}
-
-	@Override
-	@WebMethod(exclude = true)
-	public void addToCart(IClient client, IArticle article) {
-		this.addToCart(client, article);
 	}
 
 	//Mock sans BDD
@@ -93,7 +80,7 @@ public class ClientCommand implements IClientCommand{
 
 	@Override
 	@WebMethod(operationName="getShop")
-	public IShop getShop() {
+	public Shop getShop() {
 		Article x = new Article(0, "toto", "toto", 0, true, TypeArticle.pull);
 		Article y = new Article(0, "titi", "titi", 0, true, TypeArticle.pull);
 		
