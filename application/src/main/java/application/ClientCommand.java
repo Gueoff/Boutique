@@ -1,15 +1,15 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPHeaderElement;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
@@ -20,18 +20,19 @@ import com.alma.model.Client;
 import com.alma.model.IArticle;
 import com.alma.model.ICart;
 import com.alma.model.IClient;
-import com.alma.model.IShop;
-import com.alma.model.Shop;
 import com.alma.model.TypeArticle;
 import com.alma.repositories.IDAO;
 import com.alma.services.IClientCommand;
 import com.alma.services.ISupplier;
+
+import parser.ParserJSON;
 
 @WebService(endpointInterface = "application.ClientCommand")
 @SOAPBinding(style = Style.RPC)
 public class ClientCommand implements IClientCommand{
 	
 	private ISupplier factory = new SupplierStub();
+	private ParserJSON parser = new ParserJSON();
 
 	@Override
 	@WebMethod(exclude = true)
@@ -81,27 +82,21 @@ public class ClientCommand implements IClientCommand{
 
 	//Mock sans BDD
 	@Override
-	@WebMethod(operationName="getTypesArticle", exclude = true)
-	public String[] getTypesArticle() {
-		String[] liste = new String[2];
-		liste[0] = TypeArticle.jean.name();
-		liste[1] = TypeArticle.pull.name();
-		for(int i=0; i<liste.length; i++)
-			System.out.println(liste[i]);
-		return liste;
+	@WebMethod(operationName="getTypesArticle")
+	public String getTypesArticle() {
+		List<TypeArticle> liste = new ArrayList<TypeArticle>();
+		liste.add(TypeArticle.pull);
+		liste.add(TypeArticle.jean);
+		System.out.println(parser.parseTypesArticle(liste));
+		return parser.parseTypesArticle(liste);					
 	}
 
+
 	@Override
-	@WebMethod(operationName="getShop")
-	public IShop getShop() {
-		Article x = new Article(0, "toto", "toto", 0, true, TypeArticle.pull);
-		Article y = new Article(0, "titi", "titi", 0, true, TypeArticle.pull);
+	@WebMethod(operationName="getArticles", exclude = true)
+	public String getArticles(String type) {
 		
-		List<Article> la = new ArrayList<Article>();
-		la.add(x);
-		la.add(y);
-		Shop shop = new Shop(la);
-		return shop;
+		return null;
 	}
 
 }

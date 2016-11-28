@@ -3,6 +3,8 @@ package com.alma.services;
 import java.util.Collection;
 import java.util.List;
 
+import org.json.JSONArray;
+
 import com.alma.model.IArticle;
 import com.alma.model.ICart;
 import com.alma.model.IClient;
@@ -37,8 +39,8 @@ public interface IClientCommand {
 	 */
 	public void clearCart(IClient client);
 	
-	public IShop getShop();
+	public String getTypesArticle();
 	
-	public String[] getTypesArticle();
+	public String getArticles(String type);
 
 }
