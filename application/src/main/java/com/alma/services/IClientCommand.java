@@ -4,6 +4,10 @@ import com.alma.model.Article;
 import com.alma.model.Cart;
 import com.alma.model.Client;
 import com.alma.model.Shop;
+import java.util.Collection;
+import java.util.List;
+
+import org.json.JSONArray;
 
 public interface IClientCommand {
 		
@@ -34,8 +38,8 @@ public interface IClientCommand {
 	 */
 	public void clearCart(Client client);
 	
-	public Shop getShop();
+	public String getTypesArticle();
 	
-	public String[] getTypesArticle();
+	public String getArticles(String type);
 
 }
