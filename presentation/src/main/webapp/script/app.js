@@ -31,7 +31,7 @@
      }]) //END CONTROLLER
 
 
-	.controller('ShopController', ['$scope', '$http', 'USER_ROLES', 'AuthService', 'clientService', function($scope, $http, USER_ROLES, AuthService, clientService){
+	.controller('ShopController', ['$scope', '$location', 'USER_ROLES', 'AuthService', 'clientService', function($scope, $location, USER_ROLES, AuthService, clientService){
 		//VARIABLES
 		$scope.cart = [
 		    {name: 'coyote', description:'', price:3, available:true, type:'pull'},
@@ -47,6 +47,9 @@
             {name:'tshirt'},
             {name:'pantalon'}
         ];
+        
+        //$scope.typeArticle = $location.search();
+        $scope.typeArticle = 'pull';
         
         //mock
         $scope.currentUser = {name:'desbrosses', firstname:'geoffrey', age:22, email:'g@d.com',cart: $scope.cart};
@@ -82,12 +85,20 @@
     	
     	clientService.getTypesArticle()
 			.then(function(response){
-				console.log($scope.types);
 				$scope.types = angular.fromJson(response);
-				console.log($scope.types);
 			}, function(){
-				alert("Something went wrong!");
+				alert("Something went wrong with getTypesArticle()!");
 			});
+    	
+    	//if($scope.typeArticle != ''){
+    		clientService.getArticles($scope.typeArticle)
+				.then(function(response){
+					alert(response);
+					$scope.articles = angular.fromJson(response);
+				}, function(){
+					alert("Something went wrong with getArticles()!");
+				});
+    		//}
 
 
 	}]) //END CONTROLLER
@@ -108,7 +119,7 @@
 	        },
 	        
 	        getArticles: function(type){
-	            return $soap.post(config.urlClient,"getArticles", type);
+	            return $soap.post(config.urlClient,"getArticles",{name : "pull"});
 	        }
 	    }
 	}])

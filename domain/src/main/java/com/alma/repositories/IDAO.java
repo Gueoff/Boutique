@@ -1,5 +1,7 @@
 package com.alma.repositories;
 
+import java.util.List;
+
 /**
  * Data Access Object of the shop
  * 
@@ -49,4 +51,10 @@ public interface IDAO<T> {
 	 */
 	public T find(String id);
 
+	/**
+	 * list all instances of an object in the database depends of the args
+	 * @param args
+	 * @return the list in the database which correspond with the args
+	 */
+	public List<T> list(Object args);
 }

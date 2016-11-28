@@ -1,6 +1,7 @@
 package com.alma.repositories;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.alma.repositories.IDAO;
 
@@ -33,6 +34,11 @@ public class DAO<T> implements IDAO<T>{
 	}
 	
 	public T find(String id){
+		return null;
+	}
+
+	@Override
+	public List<T> list(Object args) {
 		return null;
 	}
 	

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
@@ -80,5 +82,27 @@ public class ArticleDAO extends DAO<Article>{
 		return article;
 	}
 
+	
+	public List<Article> list(Object args){
+		Article article = null;
+		TypeArticle type = (TypeArticle) args;
+		List<Article> articles = new ArrayList<Article>();
+		
+		try {
+			ResultSet result = this.connect.createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY)
+					.executeQuery(
+							"SELECT * FROM article, typeArticle WHERE article.id_type = typeArticle.id_type AND typeArticle.name_type ='" + type.name() +"'");
+
+			while (result.next()) {
+				article = new Article(result.getInt("id"), result.getString("name"), result.getString("description"), result.getLong("price"), result.getBoolean("available"), type);
+				articles.add(article);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return articles;		
+	}
 
 }

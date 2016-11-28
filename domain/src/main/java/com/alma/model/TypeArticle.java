@@ -7,5 +7,5 @@ package com.alma.model;
  * @version 0.0.1
  */
 public enum TypeArticle {
-	jean, pull;
+	jean, pull, veste;
 }

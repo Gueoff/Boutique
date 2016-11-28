@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.alma.model.Article;
 import com.alma.model.TypeArticle;
 
 public class TypeArticleDAO  extends DAO<TypeArticle>{
@@ -76,6 +79,28 @@ public class TypeArticleDAO  extends DAO<TypeArticle>{
 			e.printStackTrace();
 		}
 		return type;
+	}
+	
+	
+	public List<TypeArticle> list(Object args){
+
+		List<TypeArticle> types = new ArrayList<TypeArticle>();
+		
+		try {
+			ResultSet result = this.connect.createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY)
+					.executeQuery(
+							"SELECT name_type FROM typeArticle");
+
+			while (result.next()) {
+				TypeArticle type = TypeArticle.valueOf(result.getString("name_type"));
+				types.add(type);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return types;		
 	}
 
 }

@@ -11,6 +11,7 @@ import javax.jws.soap.SOAPBinding.Style;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.alma.bdd.Connexion;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.factories.SupplierStub;
@@ -20,6 +21,7 @@ import com.alma.model.Client;
 import com.alma.model.IArticle;
 import com.alma.model.ISupplier;
 import com.alma.model.TypeArticle;
+import com.alma.repositories.DAO;
 import com.alma.repositories.IDAO;
 
 import parser.ParserJSON;
@@ -30,6 +32,10 @@ public class ClientCommand implements IClientCommand{
 	
 	private ISupplier factory = new SupplierStub();
 	private ParserJSON parser = new ParserJSON();
+	private IDAOFactory daoFactory = new DAOFactory();
+	private IDAO<Client> clientDao = daoFactory.createClientDAO();
+	private IDAO<Article> articleDao = daoFactory.createArticleDAO();
+	private IDAO<TypeArticle> typeDao = daoFactory.createTypeArticleDAO();
 
 	@Override
 	@WebMethod(exclude = true)
@@ -71,22 +77,31 @@ public class ClientCommand implements IClientCommand{
 		c.getCart().clear();
 	}
 
-	//Mock sans BDD
 	@Override
 	@WebMethod(operationName="getTypesArticle")
 	public String getTypesArticle() {
-		List<TypeArticle> liste = new ArrayList<TypeArticle>();
-		liste.add(TypeArticle.pull);
-		liste.add(TypeArticle.jean);
-		System.out.println(parser.parseTypesArticle(liste));
-		return parser.parseTypesArticle(liste);					
+		
+		//Mock sans BDD
+		/*List<TypeArticle> list = new ArrayList<TypeArticle>();
+		list.add(TypeArticle.pull);
+		list.add(TypeArticle.jean);*/
+		
+		
+		Connexion.use();
+		typeDao = daoFactory.createTypeArticleDAO();
+		List<TypeArticle> list = typeDao.list("");
+		System.out.println(parser.parseTypesArticle(list));
+		return parser.parseTypesArticle(list);					
 	}
 
 
 	@Override
-	@WebMethod(operationName="getArticles", exclude = true)
-	public String getArticles(String type) {		
-		return null;
+	@WebMethod(operationName="getArticles")
+	public String getArticles(String type) {
+		System.out.println(type);
+		Connexion.use();
+		articleDao = daoFactory.createArticleDAO();
+		List<Article> list = articleDao.list(TypeArticle.valueOf(type));
+		return parser.parseArticles(list);
 	}
-
 }
