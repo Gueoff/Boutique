@@ -98,6 +98,9 @@ public class Article implements IArticle {
 		setAvailable(available);
 	}
 	
+	public Article() {
+	}
+
 	/**
 	 * check if the article is sold or not
 	 * @return true if a client can purchase the article, false else

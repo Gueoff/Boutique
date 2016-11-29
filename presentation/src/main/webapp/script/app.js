@@ -79,7 +79,7 @@
     				$scope.response = response;
     				$scope.cart.push($scope.articles[index]);
     	  	}, function(){
-    	  			alert("Something went wrong!");
+    	  			alert("Something went wrong with addToCart!");
     		});
     	}
     	
@@ -93,7 +93,6 @@
     	//if($scope.typeArticle != ''){
     		clientService.getArticles($scope.typeArticle)
 				.then(function(response){
-					alert(response);
 					$scope.articles = angular.fromJson(response);
 				}, function(){
 					alert("Something went wrong with getArticles()!");
@@ -108,10 +107,9 @@
 
 	    return {
 	        addToCart: function(client, article){
-	            var params = new SOAPClientParameters();
-	            params.add('client', client);
-	            params.add('article', article);
-	            return $soap.post(config.urlClient,"addToCart",params);
+	        	var clientJson = angular.toJson(client);
+	        	var articleJson = angular.toJson(article);
+	            return $soap.post(config.urlClient,"addToCart",{client : clientJson, article : articleJson});
 	        },
 	    
 	        getTypesArticle: function(){
@@ -119,7 +117,7 @@
 	        },
 	        
 	        getArticles: function(type){
-	            return $soap.post(config.urlClient,"getArticles",{name : "pull"});
+	            return $soap.post(config.urlClient,"getArticles",{type : type});
 	        }
 	    }
 	}])

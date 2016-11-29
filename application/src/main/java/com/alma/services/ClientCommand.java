@@ -1,15 +1,12 @@
 package com.alma.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.alma.bdd.Connexion;
 import com.alma.factories.DAOFactory;
@@ -38,8 +35,9 @@ public class ClientCommand implements IClientCommand{
 	private IDAO<TypeArticle> typeDao = daoFactory.createTypeArticleDAO();
 
 	@Override
-	@WebMethod(exclude = true)
-	public void buy(Client client, Cart cart) {
+	@WebMethod
+	public void buy(String client) {
+		/*
 		Client clientImpl =(Client) client;
 		Cart cartImpl = (Cart) cart;
 		clientImpl.setCart(cartImpl);
@@ -50,31 +48,25 @@ public class ClientCommand implements IClientCommand{
 		for(IArticle article : cartImpl){
 			articleDao.delete((Article) article);
 			cartImpl.remove(article);
-		}
+		}*/
 	}
 
-	@WebMethod(exclude = true)
-	public void addToCart(Client client, Article article) {
-		System.out.println("la deuxieme");
-		System.out.println(client.getFirstname());
-		Client c = (Client) client;
-		Article a = (Article) article;
-		c.addToCart(a);
+	@WebMethod(operationName="addToCart")
+	public boolean addToCart(@WebParam(name = "client") String client, @WebParam(name = "article") String article) {
+		
+		return parser.parseClient(client).addToCart(parser.parseArticle(article));
 	}
 
 	@Override
-	@WebMethod(exclude = true)
-	public void removeToCart(Client client, Article article) {
-		Client c = (Client) client;
-		Article a = (Article) article;
-		c.removeToCart(a);
+	@WebMethod(operationName="removeToCart")
+	public boolean removeToCart(String client, String article) {
+		return parser.parseClient(client).removeToCart(parser.parseArticle(article));
 	}
 
 	@Override
-	@WebMethod(exclude = true)
-	public void clearCart(Client client) {
-		Client c = (Client) client;
-		c.getCart().clear();
+	@WebMethod(operationName="clearCart")
+	public void clearCart(String client) {
+		parser.parseClient(client).getCart().clear();
 	}
 
 	@Override
@@ -90,18 +82,15 @@ public class ClientCommand implements IClientCommand{
 		Connexion.use();
 		typeDao = daoFactory.createTypeArticleDAO();
 		List<TypeArticle> list = typeDao.list("");
-		System.out.println(parser.parseTypesArticle(list));
 		return parser.parseTypesArticle(list);					
 	}
 
 
 	@Override
 	@WebMethod(operationName="getArticles")
-	public String getArticles(String type) {
-		System.out.println(type);
+	public String getArticles(@WebParam(name = "type") String type) {
 		Connexion.use();
 		articleDao = daoFactory.createArticleDAO();
-		List<Article> list = articleDao.list(TypeArticle.valueOf(type));
-		return parser.parseArticles(list);
+		return parser.parseArticles(articleDao.list(TypeArticle.valueOf(type)));
 	}
 }

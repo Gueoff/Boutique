@@ -21,7 +21,7 @@ public class App {
 		// TODO Auto-generated method stub
 		ParserJSON parser = new ParserJSON();
 		
-		
+		/*
 		List<TypeArticle> liste = new ArrayList<TypeArticle>();
 		liste.add(TypeArticle.pull);
 		liste.add(TypeArticle.jean);
@@ -44,6 +44,12 @@ public class App {
 
 		
 		parser.parseClient(c);
+		*/
+		
+		String chaine = "{'name':'desbrosses','firstname':'geoffrey','age':22,'email':'g@d.com','cart':[{'id':1,'name':'coyote','description':'','price':3,'available':true,'type':'pull'},{'id':2,'name':'pantalon','description':'','price':6,'available':true,'type':'jean'}]}";
+		String deux = "{'id':1, 'name':'pantalon','description':'','price':6,'available':true,'type':'jean'}";
+
+		parser.parseClient(chaine);
 		
 	}
 

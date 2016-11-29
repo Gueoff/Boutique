@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.alma.model.Article;
+import com.alma.model.Cart;
 import com.alma.model.Client;
 import com.alma.model.IArticle;
 import com.alma.model.TypeArticle;
@@ -43,6 +44,34 @@ public class ParserJSON {
 	
 	
 	/**
+	 * Crée un client a partie d'un objet JSON
+	 * @param client le JSON
+	 * @return un client correspondant au JSON
+	 */
+	public Client parseClient(String client){
+		JSONObject json = new JSONObject(client);
+		System.out.println(client);
+
+		Client c = new Client();
+		c.setName(json.get("name").toString());
+		c.setFirstname(json.get("firstname").toString());
+		c.setAge(Integer.parseInt(json.get("age").toString()));
+		c.setEmail(json.get("email").toString());
+		
+		JSONArray cartJson = new JSONArray(json.get("cart").toString());
+		Cart cart = new Cart();
+		for(int i=0; i<cartJson.length(); i++){
+			Article article = parseArticle(cartJson.get(i).toString());
+			cart.add(article);
+		}
+		c.setCart(cart);
+		
+		
+		return c;
+	}
+	
+	
+	/**
 	 * Forme un JSONObject a partir d'un article.
 	 * @param article l'article a transformer en JSONObject.
 	 * @return L'article sous format JSON.
@@ -57,6 +86,25 @@ public class ParserJSON {
 		json.put("type",article.getType().name());
 				
 		return json;
+	}
+	
+	/**
+	 * crée un objet article a partir d'un String de format JSON
+	 * @param article le JSON
+	 * @return le nouvel article.
+	 */
+	public Article parseArticle(String article){
+		JSONObject json = new JSONObject(article);
+		
+		Article a = new Article();
+		//a.setId(Integer.parseInt(json.get("id").toString()));
+		a.setName(json.get("name").toString());
+		a.setDescription(json.get("description").toString());
+		a.setPrice(Double.parseDouble(json.get("price").toString()));
+		a.setAvailable(Boolean.parseBoolean(json.get("available").toString()));
+		a.setType(TypeArticle.valueOf(json.get("type").toString()));
+		
+		return a;
 	}
 	
 	/**
@@ -96,4 +144,6 @@ public class ParserJSON {
 		}
 		return liste.toString();
 	}
+	
+
 }

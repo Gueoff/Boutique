@@ -48,15 +48,21 @@ public class Client implements IClient{
 		setEmail(email);
 	}
 
+	public Client() {
+	}
+
 	/**
 	 * Add an article in the client's cart
 	 * 
 	 * @param article article added in the client's cart
 	 */
-	public void addToCart(IArticle article) {
+	public boolean addToCart(IArticle article) {
 		if (article.isAvailable()) {
 			this.cart.add(article);
+			System.out.println("article ajoute");
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -64,10 +70,13 @@ public class Client implements IClient{
 	 * 
 	 * @param article article removed of the client's cart
 	 */
-	public void removeToCart(IArticle article) {
+	public boolean removeToCart(IArticle article) {
 		if (this.cart.contains(article)) {
 			this.cart.remove(article);
+			System.out.println("article retire");
+			return true;
 		}
+		return false;
 	}
 
 	/**
