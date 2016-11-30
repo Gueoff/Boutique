@@ -36,4 +36,8 @@ public class Cart extends ArrayList<IArticle> implements ICart{
 		return super.contains(o);
 	}
 
+	public boolean empty(){
+		super.clear();
+		return true;
+	}
 }

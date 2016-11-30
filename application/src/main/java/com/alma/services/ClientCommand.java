@@ -8,17 +8,11 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import com.alma.bdd.ConnectionDerby;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
-import com.alma.model.Cart;
-import com.alma.model.Client;
-import com.alma.model.IArticle;
 import com.alma.model.TypeArticle;
-import com.alma.repositories.DAO;
 import com.alma.repositories.IDAO;
-import com.alma.stubs.SupplierStub;
 
 import parser.ParserJSON;
 
@@ -28,56 +22,38 @@ public class ClientCommand implements IClientCommand{
 	
 	private ParserJSON parser = new ParserJSON();
 	private IDAOFactory daoFactory = new DAOFactory();
-	private IDAO<Client> clientDao = daoFactory.createClientDAO();
+	//private IDAO<Client> clientDao = daoFactory.createClientDAO(); inscription && connexion
 	private IDAO<Article> articleDao = daoFactory.createArticleDAO();
 	private IDAO<TypeArticle> typeDao = daoFactory.createTypeArticleDAO();
 
 	@Override
 	@WebMethod
-	public void buy(String client) {
-		/*
-		Client clientImpl =(Client) client;
-		Cart cartImpl = (Cart) cart;
-		clientImpl.setCart(cartImpl);
-		clientImpl.buy(); //A implementer en appelant service distant de CB
-		
-		IDAOFactory factoryDao = new DAOFactory();
-		IDAO<Article> articleDao =  factoryDao.createArticleDAO();
-		for(IArticle article : cartImpl){
-			articleDao.delete((Article) article);
-			cartImpl.remove(article);
-		}*/
+	public boolean buy(@WebParam(name = "client") String client) {
+		return parser.parseClient(client).buy(); //A implementer en appelant service distant de CB
 	}
 
 	@WebMethod(operationName="addToCart")
 	public boolean addToCart(@WebParam(name = "client") String client, @WebParam(name = "article") String article) {
-		
 		return parser.parseClient(client).addToCart(parser.parseArticle(article));
 	}
 
 	@Override
 	@WebMethod(operationName="removeToCart")
-	public boolean removeToCart(String client, String article) {
+	public boolean removeToCart(@WebParam(name = "client") String client, @WebParam(name = "article") String article) {
 		return parser.parseClient(client).removeToCart(parser.parseArticle(article));
 	}
 
 	@Override
 	@WebMethod(operationName="clearCart")
-	public void clearCart(String client) {
-		parser.parseClient(client).getCart().clear();
+	public boolean clearCart(@WebParam(name = "client") String client) {
+		return parser.parseClient(client).getCart().empty();
 	}
 
 	@Override
 	@WebMethod(operationName="getTypesArticle")
 	public String getTypesArticle() {
-		
-		//Mock sans BDD
-		/*List<TypeArticle> list = new ArrayList<TypeArticle>();
-		list.add(TypeArticle.pull);
-		list.add(TypeArticle.jean);*/
-		
 		typeDao = daoFactory.createTypeArticleDAO();
-		List<TypeArticle> list = typeDao.list("");
+		List<TypeArticle> list = typeDao.list(null);
 		return parser.parseTypesArticle(list);					
 	}
 

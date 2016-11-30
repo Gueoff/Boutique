@@ -78,13 +78,56 @@
     	};
     	
     	
+    	
+    	
+    	//Fonctions de service
+    	clientService.getTypesArticle().then(function(response){
+			$scope.types = angular.fromJson(response);
+		}, function(){
+			alert("Something went wrong with getTypesArticle()!");
+		});
+	
+		if($scope.typeArticle != ''){
+			clientService.getArticles($scope.typeArticle).then(function(response){
+				$scope.articles = angular.fromJson(response);
+			}, function(){
+				alert("Something went wrong with getArticles()!");
+			});
+		}
+    	
+    	
     	$scope.addToCart = function(index) {
-    		clientService.addToCart($scope.currentUser, $scope.articles[index])
-    			.then(function(response){
-    				$scope.cart.push($scope.articles[index]);
-    				$scope.getTotal();
+    		clientService.addToCart($scope.currentUser, $scope.articles[index]).then(function(response){
+    			$scope.cart.push($scope.articles[index]);
+    			$scope.getTotal();
     	  	}, function(){
-    	  			alert("Something went wrong with addToCart!");
+    	  		alert("Something went wrong with addToCart!");
+    		});
+    	}
+    	
+    	$scope.removeToCart = function(index) {
+    		clientService.removeToCart($scope.currentUser, $scope.cart[index]).then(function(response){
+    			$scope.cart.pop($scope.cart[index]);
+    			$scope.getTotal();
+    	  	}, function(){
+    	  		alert("Something went wrong with removeToCart!");
+    		});
+    	}
+    	
+    	$scope.clearCart = function() {
+    		clientService.clearCart($scope.currentUser).then(function(response){
+    			$scope.cart = [];
+    			$scope.getTotal();
+    	  	}, function(){
+    	  		alert("Something went wrong with clearCart!");
+    		});
+    	}
+    	
+    	$scope.buy = function() {
+    		clientService.buy($scope.currentUser).then(function(response){
+    			alert('on achete');
+    	  	}, function(){
+    	  		alert("Something went wrong with buy!");
     		});
     	}
     	
@@ -99,40 +142,24 @@
 			}
 			var taux = 1;
 			
-    		clientService.convert(taux, $scope.oldMoney, $scope.money)
-    			.then(function(response){
-    				taux = response;
+    		clientService.convert(taux, $scope.oldMoney, $scope.money).then(function(response){
+    			taux = response;
     				
-    				//MAJ des prix des articles
-    		   		for(i=0; i< $scope.articles.length; i++){
-    					$scope.articles[i].price = ($scope.articles[i].price*taux).toFixed(2);
-    				}
-    				//MAJ des prix du panier
-    				for(i =0; i< $scope.cart.length; i++){
-    					$scope.cart[i].price = ($scope.cart[i].price*taux).toFixed(2);
-    				}	
-    				$scope.getTotal();
-    				
+    			//MAJ des prix des articles
+    		   	for(i=0; i< $scope.articles.length; i++){
+    				$scope.articles[i].price = ($scope.articles[i].price*taux).toFixed(2);
+    			}
+    			//MAJ des prix du panier
+    			for(i =0; i< $scope.cart.length; i++){
+    				$scope.cart[i].price = ($scope.cart[i].price*taux).toFixed(2);
+    			}	
+    			$scope.getTotal();	
     	  	}, function(){
     	  			alert("Something went wrong with convert!");
     		});
     	}
     	
-    	clientService.getTypesArticle()
-			.then(function(response){
-				$scope.types = angular.fromJson(response);
-			}, function(){
-				alert("Something went wrong with getTypesArticle()!");
-			});
     	
-    	if($scope.typeArticle != ''){
-    		clientService.getArticles($scope.typeArticle)
-				.then(function(response){
-					$scope.articles = angular.fromJson(response);
-				}, function(){
-					alert("Something went wrong with getArticles()!");
-				});
-    		}
 
 
 	}]) //END CONTROLLER
@@ -141,12 +168,7 @@
 	.factory("clientService", ['$soap',function($soap){
 
 	    return {
-	        addToCart: function(client, article){
-	        	var clientJson = angular.toJson(client);
-	        	var articleJson = angular.toJson(article);
-	            return $soap.post(config.urlClient,"addToCart",{client : clientJson, article : articleJson});
-	        },
-	    
+	    	
 	        getTypesArticle: function(){
 	            return $soap.post(config.urlClient,"getTypesArticle");
 	        },
@@ -155,9 +177,31 @@
 	            return $soap.post(config.urlClient,"getArticles",{type : type});
 	        },
 	        
+	        addToCart: function(client, article){
+	        	var clientJson = angular.toJson(client);
+	        	var articleJson = angular.toJson(article);
+	            return $soap.post(config.urlClient,"addToCart",{client : clientJson, article : articleJson});
+	        },
+	        
+	        removeToCart: function(client, article){
+	        	var clientJson = angular.toJson(client);
+	        	var articleJson = angular.toJson(article);
+	            return $soap.post(config.urlClient,"removeToCart",{client : clientJson, article : articleJson});
+	        },
+	 
+	        clearCart: function(client){
+	        	var clientJson = angular.toJson(client);
+	            return $soap.post(config.urlClient, "clearCart", {client : clientJson});
+	        },
+	        
+	        buy: function(client){
+	        	var clientJson = angular.toJson(client);
+	            return $soap.post(config.urlClient, "buy", {client : clientJson});
+	        },
+	        
 	        convert: function(amount, from, to){
 	            return $soap.post(config.urlConvert, "convert", {amount : amount, from : from, to : to});
-	        }
+	        },
 	       
 	    }
 	}])

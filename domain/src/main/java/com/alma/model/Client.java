@@ -62,6 +62,7 @@ public class Client implements IClient{
 			System.out.println("article ajoute");
 			return true;
 		}
+		System.out.println("erreur addToCart domain");
 		return false;
 	}
 
@@ -76,18 +77,21 @@ public class Client implements IClient{
 			System.out.println("article retire");
 			return true;
 		}
+		System.out.println("erreur removeToCart domain");
 		return false;
 	}
 
 	/**
 	 * buy all elements in the cart
 	 */
-	public void buy(){
+	public boolean buy(){
+		System.out.println("buy domain");
 		for(IArticle a : cart) {
 			a.setAvailable(false);
 		}
 		// TODO A PLUS DARGENT
 		cart = new Cart();
+		return true;
 	}
 
 	public String getName() {

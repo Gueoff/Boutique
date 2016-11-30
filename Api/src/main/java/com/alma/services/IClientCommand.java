@@ -12,7 +12,7 @@ public interface IClientCommand {
 	 * Methode servant a acheter un article sur la boutique
 	 * @param client le client acheteur
 	 */
-	public void buy(String client);
+	public boolean buy(String client);
 	
 	/**
 	 * Ajouter un article au pannier.
@@ -34,7 +34,7 @@ public interface IClientCommand {
 	 * Vider le panier
 	 * @param client le client possédant le panier
 	 */
-	public void clearCart(String client);
+	public boolean clearCart(String client);
 	
 	/**
 	 * 

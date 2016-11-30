@@ -3,6 +3,7 @@ package com.alma.factories;
 import java.sql.Connection;
 
 import com.alma.bdd.ConnectionDerby;
+import com.alma.bdd.ConnectionMySQL;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
 import com.alma.model.Client;

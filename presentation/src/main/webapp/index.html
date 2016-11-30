@@ -67,12 +67,16 @@
 	    		</a>
 	    		<div class="cartDesc" ng-show="cartActif">
 		    		<ul ng-repeat="article in cart">
-		    			<li><h5>{{article.name}}<small class="price"> {{article.price}}{{signeMoney}}</small></h5></li>
+		    			<li><h5>{{article.name}}<small class="price"> {{article.price}}{{signeMoney}}</small></h5><div id="removeToCart" ng-click="removeToCart($index)">R</div></li>
 		    		</ul>
 		    		<hr>
 					<ul>
 		    			<li><h5>Total : <small class="price">{{total}}{{signeMoney}}</small></h5></li>
-		    			<li><a href="#" class="btn btn-default" role="button">Valider panier</a></li>
+		    			<li>
+		    				<a href="#" class="btn btn-default" role="button" ng-click="buy()">Acheter</a>
+		    				<a href="#" class="btn btn-default" role="button" ng-click="clearCart()">Vider panier</a>
+		    			</li>
+		    			
 		    		</ul>
 	    		</div>	
 	  		</li>

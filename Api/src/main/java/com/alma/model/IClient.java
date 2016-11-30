@@ -27,5 +27,5 @@ public interface IClient {
 	/**
 	 * buy all elements in the cart
 	 */
-	public void buy();
+	public boolean buy();
 }
