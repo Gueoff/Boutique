@@ -8,7 +8,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import com.alma.bdd.ConnectionMySQL;
+import com.alma.bdd.ConnectionDerby;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
@@ -76,8 +76,6 @@ public class ClientCommand implements IClientCommand{
 		list.add(TypeArticle.pull);
 		list.add(TypeArticle.jean);*/
 		
-		
-		ConnectionMySQL.use();
 		typeDao = daoFactory.createTypeArticleDAO();
 		List<TypeArticle> list = typeDao.list("");
 		return parser.parseTypesArticle(list);					
@@ -87,7 +85,6 @@ public class ClientCommand implements IClientCommand{
 	@Override
 	@WebMethod(operationName="getArticles")
 	public String getArticles(@WebParam(name = "type") String type) {
-		ConnectionMySQL.use();
 		articleDao = daoFactory.createArticleDAO();
 		return parser.parseArticles(articleDao.list(TypeArticle.valueOf(type)));
 	}
