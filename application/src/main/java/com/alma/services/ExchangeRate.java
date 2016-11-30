@@ -1,6 +1,7 @@
 package com.alma.services;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.soap.*;
 
@@ -9,9 +10,11 @@ public class ExchangeRate implements IExchangeRate {
 
 	private static final String webServiceUrl = "http://currencyconverter.kowabunga.net/converter.asmx";
 	
-	@WebMethod
+	
+		
+	@WebMethod(operationName="convert")
 	@Override
-	public float convert(float amount, String from, String to) {
+	public float convert(@WebParam(name = "amount")float amount,@WebParam(name = "from") String from, @WebParam(name = "to") String to) {
 		try {
 			// Create SOAP Connection
 	        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
