@@ -1,7 +1,7 @@
 	const config ={
 	    urlClient : "http://localhost:8080/application/clientcommand",
 	    urlSupplier : "",
-	    urlConvert : ""
+	    urlConvert : "	http://localhost:8080/application/exchangerate"
 	};
 
     angular.module('shopApp', ['angularSoap'])
@@ -34,10 +34,7 @@
 
 	.controller('ShopController', ['$scope', '$location', 'USER_ROLES', 'AuthService', 'clientService', function($scope, $location, USER_ROLES, AuthService, clientService){
 		//VARIABLES
-		$scope.cart = [
-		    {name: 'coyote', description:'', price:3, available:true, type:'pull'},
-		    {name: 'pantalon', description:'', price:6, available:true, type:'jean'}
-		];
+		$scope.cart = [];
 		
 		$scope.articles = [
 			{name: 'pull over',   description:'ptite description', price:3, available:true, type:'pull'},
@@ -52,8 +49,9 @@
         $scope.money = 'EUR';
         $scope.signeMoney = '€';
         $scope.oldMoney = '';
-        $scope.taux = '1';
-       
+        $scope.total = 0;
+        
+
         
         //$scope.typeArticle = $location.search();
         $scope.typeArticle = 'pull';
@@ -68,12 +66,10 @@
     	
     	//FUNCTIONS
 		$scope.getTotal = function(){
-    		var total = 0;
+			$scope.total = 0;
     		for(var i = 0; i < $scope.cart.length; i++){
-        		var product = $scope.cart[i];
-        		total += (product.price);
+        		$scope.total += ($scope.cart[i].price)*1;
     		}
-    		return total;
 		}
 	
 
@@ -85,8 +81,8 @@
     	$scope.addToCart = function(index) {
     		clientService.addToCart($scope.currentUser, $scope.articles[index])
     			.then(function(response){
-    				$scope.response = response;
     				$scope.cart.push($scope.articles[index]);
+    				$scope.getTotal();
     	  	}, function(){
     	  			alert("Something went wrong with addToCart!");
     		});
@@ -101,26 +97,25 @@
 				$scope.oldMoney = 'USD';
 				$scope.signeMoney = '€';
 			}
-
-			/*
-    		clientService.convert(1, $scope.oldMoney, $scope.money)
+			var taux = 1;
+			
+    		clientService.convert(taux, $scope.oldMoney, $scope.money)
     			.then(function(response){
-    				console.log(response);
-    				$scope.taux = response;
+    				taux = response;
+    				
+    				//MAJ des prix des articles
+    		   		for(i=0; i< $scope.articles.length; i++){
+    					$scope.articles[i].price = ($scope.articles[i].price*taux).toFixed(2);
+    				}
+    				//MAJ des prix du panier
+    				for(i =0; i< $scope.cart.length; i++){
+    					$scope.cart[i].price = ($scope.cart[i].price*taux).toFixed(2);
+    				}	
+    				$scope.getTotal();
+    				
     	  	}, function(){
     	  			alert("Something went wrong with convert!");
     		});
-    		*/
-    		$scope.taux = 1.2;
-    		
-    		
-    		for(var i; i< $scope.articles.length; i++){
-				$scope.articles[i].price = $scope.articles[i].price*$scope.taux;
-			}
-			
-			for(var i; i< $scope.cart.length; i++){
-				$scope.cart[i].price = $scope.cart[i].price*$scope.taux;
-			}
     	}
     	
     	clientService.getTypesArticle()
@@ -158,12 +153,12 @@
 	        
 	        getArticles: function(type){
 	            return $soap.post(config.urlClient,"getArticles",{type : type});
-	        }
-	        /*
+	        },
+	        
 	        convert: function(amount, from, to){
 	            return $soap.post(config.urlConvert, "convert", {amount : amount, from : from, to : to});
 	        }
-	       */
+	       
 	    }
 	}])
 
