@@ -8,18 +8,17 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import com.alma.bdd.Connexion;
+import com.alma.bdd.ConnectionMySQL;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
-import com.alma.factories.SupplierStub;
 import com.alma.model.Article;
 import com.alma.model.Cart;
 import com.alma.model.Client;
 import com.alma.model.IArticle;
-import com.alma.model.ISupplier;
 import com.alma.model.TypeArticle;
 import com.alma.repositories.DAO;
 import com.alma.repositories.IDAO;
+import com.alma.stubs.SupplierStub;
 
 import parser.ParserJSON;
 
@@ -27,7 +26,6 @@ import parser.ParserJSON;
 @SOAPBinding(style = Style.RPC)
 public class ClientCommand implements IClientCommand{
 	
-	private ISupplier factory = new SupplierStub();
 	private ParserJSON parser = new ParserJSON();
 	private IDAOFactory daoFactory = new DAOFactory();
 	private IDAO<Client> clientDao = daoFactory.createClientDAO();
@@ -79,7 +77,7 @@ public class ClientCommand implements IClientCommand{
 		list.add(TypeArticle.jean);*/
 		
 		
-		Connexion.use();
+		ConnectionMySQL.use();
 		typeDao = daoFactory.createTypeArticleDAO();
 		List<TypeArticle> list = typeDao.list("");
 		return parser.parseTypesArticle(list);					
@@ -89,7 +87,7 @@ public class ClientCommand implements IClientCommand{
 	@Override
 	@WebMethod(operationName="getArticles")
 	public String getArticles(@WebParam(name = "type") String type) {
-		Connexion.use();
+		ConnectionMySQL.use();
 		articleDao = daoFactory.createArticleDAO();
 		return parser.parseArticles(articleDao.list(TypeArticle.valueOf(type)));
 	}

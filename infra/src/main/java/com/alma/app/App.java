@@ -3,7 +3,7 @@ package com.alma.app;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alma.bdd.Connexion;
+import com.alma.bdd.ConnectionMySQL;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
@@ -16,10 +16,10 @@ public class App {
 	public static void main(String[] args) {
 
 		// Création des données
-		//Connexion.drop();
-		//Connexion.create();
-		//Connexion.createTable();
-		Connexion.use();
+		//ConnectionMySQL.drop();
+		//ConnectionMySQL.create();
+		//ConnectionMySQL.createTable();
+		//ConnectionMySQL.use();
 
 		IDAOFactory factory = new DAOFactory();
 		IDAO<Client> clientDao = factory.createClientDAO();

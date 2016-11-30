@@ -13,9 +13,7 @@ public class Cart extends ArrayList<IArticle> implements ICart{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Add an article in the cart
-	 * @param a article added
-	 * @return true if it works, false else
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean add(IArticle e) {
@@ -23,9 +21,7 @@ public class Cart extends ArrayList<IArticle> implements ICart{
 	}
 
 	/**
-	 * Remove an article of the cart
-	 * @param a article removed
-	 * @return true if it works, false else
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean remove(IArticle o) {
@@ -33,10 +29,7 @@ public class Cart extends ArrayList<IArticle> implements ICart{
 	}
 	
 	/**
-	 * Check if the cart contains an article
-	 * 
-	 * @param a article checked
-	 * @return true if the article is in the carte, else false
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean contains(IArticle o) {

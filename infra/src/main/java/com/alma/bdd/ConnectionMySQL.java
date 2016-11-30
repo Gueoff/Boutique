@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class Connexion {
+public class ConnectionMySQL {
 
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static String connection = "jdbc:mysql://localhost";
@@ -15,10 +15,11 @@ public class Connexion {
 	private static Connection connect = null;
 	private static final String PORT = System.getProperty("mysql.port");
 	
-	private Connexion() {
+	private ConnectionMySQL() {
 		try {
 			//connect = DriverManager.getConnection(String.format("jdbc:mysql://localhost:%s/root?user=root&password=root", this.PORT));		
-			connect = DriverManager.getConnection(connection, user, pwd);
+			//connect = DriverManager.getConnection(connection, user, pwd);
+			connect = DriverManager.getConnection("jdbc:derby:memory:demo;create=true");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -26,7 +27,7 @@ public class Connexion {
 
 	public static Connection getInstance() {
 		if (connect == null) {
-			new Connexion();
+			new ConnectionMySQL();
 		}
 		return connect;
 	}

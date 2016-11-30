@@ -53,7 +53,7 @@ public interface IDAO<T> {
 
 	/**
 	 * list all instances of an object in the database depends of the args
-	 * @param args
+	 * @param args nocomprendo
 	 * @return the list in the database which correspond with the args
 	 */
 	public List<T> list(Object args);

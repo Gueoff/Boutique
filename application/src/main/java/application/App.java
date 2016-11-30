@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import com.alma.bdd.Connexion;
+import com.alma.bdd.ConnectionMySQL;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;

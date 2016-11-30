@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.alma.model.Client;
 
@@ -70,6 +71,18 @@ public class ClientDAO extends DAO<Client>{
 			e.printStackTrace();
 		}
 		return client;
+	}
+
+	@Override
+	public Client find(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Client> list(Object args) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

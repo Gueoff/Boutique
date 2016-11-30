@@ -31,7 +31,7 @@ public class ExchangeRate implements IExchangeRate {
 	}
 	
 	@WebMethod(exclude = true)
-    private static SOAPMessage createSOAPRequestConversionAmount(float amount, String from, String to) throws SOAPException {
+    private SOAPMessage createSOAPRequestConversionAmount(float amount, String from, String to) throws SOAPException {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage(); 
 
@@ -50,7 +50,7 @@ public class ExchangeRate implements IExchangeRate {
         // Values
         currencyFromElement.setValue(from);
         currencyToElement.setValue(to);
-        rateDateElement.setValue(getLastUpdateDate());
+        rateDateElement.setValue(this.getLastUpdateDate());
         amountElement.setValue(String.valueOf(amount));
         soapMessage.saveChanges();
 
@@ -63,7 +63,7 @@ public class ExchangeRate implements IExchangeRate {
 	}
     
 	@WebMethod
-	public static String getLastUpdateDate() {
+	public String getLastUpdateDate() {
 		try {
 			// Create SOAP Connection
 	        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -83,7 +83,7 @@ public class ExchangeRate implements IExchangeRate {
 	}
 	
 	@WebMethod(exclude = true)
-    private static SOAPMessage createSOAPRequestLastUpdateDate() throws SOAPException {
+    private SOAPMessage createSOAPRequestLastUpdateDate() throws SOAPException {
     	 MessageFactory messageFactory = MessageFactory.newInstance();
          SOAPMessage soapMessage = messageFactory.createMessage();
          
@@ -100,7 +100,7 @@ public class ExchangeRate implements IExchangeRate {
     }
     
 	@WebMethod(exclude = true)
-    private static String readSOAPResponseLastUpdateDate(SOAPMessage m) throws SOAPException {
+    private String readSOAPResponseLastUpdateDate(SOAPMessage m) throws SOAPException {
 		return m.getSOAPBody().getChildNodes().item(0).getChildNodes().item(0).getChildNodes().item(0).getNodeValue();
     }
     

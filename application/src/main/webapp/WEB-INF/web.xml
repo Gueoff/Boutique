@@ -14,12 +14,13 @@ Inc.//DTD Web Application 2.3//EN"
 	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	
+
 	<listener>
 		<listener-class>
 			com.sun.xml.ws.transport.http.servlet.WSServletContextListener
 		</listener-class>
 	</listener>
+	
 	
 	<servlet>
 		<servlet-name>testName</servlet-name>
@@ -36,7 +37,24 @@ Inc.//DTD Web Application 2.3//EN"
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
+	
+	<servlet>
+		<servlet-name>supplierCommand</servlet-name>
+		<servlet-class>
+			com.sun.xml.ws.transport.http.servlet.WSServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>exchangeRate</servlet-name>
+		<servlet-class>
+			com.sun.xml.ws.transport.http.servlet.WSServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	
 	<servlet-mapping>
 		<servlet-name>testName</servlet-name>
 		<url-pattern>/test</url-pattern>
@@ -46,13 +64,19 @@ Inc.//DTD Web Application 2.3//EN"
 		<servlet-name>clientCommand</servlet-name>
 		<url-pattern>/clientcommand</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>supplierCommand</servlet-name>
+		<url-pattern>/suppliercommand</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>exchangeRate</servlet-name>
+		<url-pattern>/exchangerate</url-pattern>
+	</servlet-mapping>
 
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>
-	
-
-
-	
 	
 </web-app>

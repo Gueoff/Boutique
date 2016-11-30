@@ -105,4 +105,10 @@ public class ArticleDAO extends DAO<Article>{
 		return articles;		
 	}
 
+	@Override
+	public Article find(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

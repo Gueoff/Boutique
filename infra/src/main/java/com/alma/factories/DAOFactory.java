@@ -2,7 +2,7 @@ package com.alma.factories;
 
 import java.sql.Connection;
 
-import com.alma.bdd.Connexion;
+import com.alma.bdd.ConnectionMySQL;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
 import com.alma.model.Client;
@@ -14,7 +14,7 @@ import com.alma.repositories.TypeArticleDAO;
 
 public class DAOFactory implements IDAOFactory{
 
-	protected static final Connection conn = Connexion.getInstance();
+	protected static final Connection conn = ConnectionMySQL.getInstance();
 
 	/**
 	 * create a new instance of a client DAO

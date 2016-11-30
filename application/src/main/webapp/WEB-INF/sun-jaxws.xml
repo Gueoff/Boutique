@@ -9,5 +9,13 @@
    <endpoint 
       name="ClientCommand"
       implementation="com.alma.services.ClientCommand"
-      url-pattern="/clientcommand"/>
+      url-pattern="/clientcommand"/> 
+   <endpoint 
+   	  name="SupplierCommand"
+   	  implementation="com.alma.services.SupplierCommand"
+   	  url-pattern="/suppliercommand"/>
+   <endpoint 
+   	  name="ExchangeRate"
+   	  implementation="com.alma.services.ExchangeRate"
+   	  url-pattern="/exchangerate"/>
 </endpoints>

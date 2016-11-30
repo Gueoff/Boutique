@@ -124,7 +124,7 @@ public class ParserJSON {
 	 * @param articles la liste d'articles a parser.
 	 * @return une chaine de caractere JSON.
 	 */
-	public String parseArticles(List<Article> articles){
+	public String parseArticles(Collection<Article> articles){
 		Collection<JSONObject> liste = new ArrayList<JSONObject>();
 		for(Article article : articles){
 			liste.add(parseArticle(article));		
@@ -146,4 +146,18 @@ public class ParserJSON {
 	}
 	
 
+	/**
+	 * TODO Marche probablement pas
+	 * Forme une liste d'objet JSON à partir d'une liste JSON
+	 * @param list liste à lire
+	 * @return liste d'objet JSON parcourable en java
+	 */
+	public Collection<String> parseCollection(String list) {
+		Collection<String> liste = new ArrayList<String>();
+		JSONArray test = new JSONObject(list).getJSONArray("");
+		for(Object j : test){
+			liste.add(j.toString());
+		}
+		return liste;
+	}
 }

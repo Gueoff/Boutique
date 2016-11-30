@@ -12,7 +12,7 @@ public interface IClient {
 	 * Add an article in the client's cart
 	 * 
 	 * @param article article added in the client's cart
-	 * @return true si ca a marché, false sinon.
+	 * @return true si ca a marché, else false
 	 */
 	public boolean addToCart(IArticle article);
 	
@@ -20,7 +20,7 @@ public interface IClient {
 	 * Remove an article of the client's cart
 	 * 
 	 * @param article article removed of the client's cart
-	 * @return 
+	 * @return true if the aricle is remove, else false
 	 */
 	public boolean removeToCart(IArticle article);
 	
