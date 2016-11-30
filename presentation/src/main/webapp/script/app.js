@@ -1,6 +1,7 @@
 	const config ={
 	    urlClient : "http://localhost:8080/application/clientcommand",
 	    urlSupplier : "",
+	    urlConvert : ""
 	};
 
     angular.module('shopApp', ['angularSoap'])
@@ -48,6 +49,12 @@
             {name:'pantalon'}
         ];
         
+        $scope.money = 'EUR';
+        $scope.signeMoney = '€';
+        $scope.oldMoney = '';
+        $scope.taux = '1';
+       
+        
         //$scope.typeArticle = $location.search();
         $scope.typeArticle = 'pull';
         
@@ -56,6 +63,8 @@
     	//$scope.currentUser = null;
     	$scope.userRoles = USER_ROLES;
     	$scope.isAuthorized = AuthService.isAuthorized;
+    	
+    	
     	
     	//FUNCTIONS
 		$scope.getTotal = function(){
@@ -83,6 +92,37 @@
     		});
     	}
     	
+    	$scope.convert = function(money) {
+			$scope.money = money;
+			if(money == 'USD'){
+				$scope.oldMoney = 'EUR';
+				$scope.signeMoney = '$';
+			} else{
+				$scope.oldMoney = 'USD';
+				$scope.signeMoney = '€';
+			}
+
+			/*
+    		clientService.convert(1, $scope.oldMoney, $scope.money)
+    			.then(function(response){
+    				console.log(response);
+    				$scope.taux = response;
+    	  	}, function(){
+    	  			alert("Something went wrong with convert!");
+    		});
+    		*/
+    		$scope.taux = 1.2;
+    		
+    		
+    		for(var i; i< $scope.articles.length; i++){
+				$scope.articles[i].price = $scope.articles[i].price*$scope.taux;
+			}
+			
+			for(var i; i< $scope.cart.length; i++){
+				$scope.cart[i].price = $scope.cart[i].price*$scope.taux;
+			}
+    	}
+    	
     	clientService.getTypesArticle()
 			.then(function(response){
 				$scope.types = angular.fromJson(response);
@@ -90,14 +130,14 @@
 				alert("Something went wrong with getTypesArticle()!");
 			});
     	
-    	//if($scope.typeArticle != ''){
+    	if($scope.typeArticle != ''){
     		clientService.getArticles($scope.typeArticle)
 				.then(function(response){
 					$scope.articles = angular.fromJson(response);
 				}, function(){
 					alert("Something went wrong with getArticles()!");
 				});
-    		//}
+    		}
 
 
 	}]) //END CONTROLLER
@@ -119,6 +159,11 @@
 	        getArticles: function(type){
 	            return $soap.post(config.urlClient,"getArticles",{type : type});
 	        }
+	        /*
+	        convert: function(amount, from, to){
+	            return $soap.post(config.urlConvert, "convert", {amount : amount, from : from, to : to});
+	        }
+	       */
 	    }
 	}])
 
