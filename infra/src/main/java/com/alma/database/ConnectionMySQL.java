@@ -1,4 +1,4 @@
-package com.alma.bdd;
+package com.alma.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

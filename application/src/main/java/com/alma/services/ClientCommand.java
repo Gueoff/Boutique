@@ -8,7 +8,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
-import com.alma.bdd.ConnectionMySQL;
+import com.alma.database.ConnectionMySQL;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
