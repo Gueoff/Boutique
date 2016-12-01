@@ -5,16 +5,18 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.soap.*;
 
+import org.apache.log4j.Logger;
+
 @WebService(endpointInterface = "com.alma.services.ExchangeRate")
 public class ExchangeRate implements IExchangeRate {
 
 	private static final String webServiceUrl = "http://currencyconverter.kowabunga.net/converter.asmx";
-	
-	
+	private static Logger logger = Logger.getLogger(Authentification.class.getName());	
 		
 	@WebMethod(operationName="convert")
 	@Override
 	public float convert(@WebParam(name = "amount")float amount,@WebParam(name = "from") String from, @WebParam(name = "to") String to) {
+		logger.info("Convert the amount " + amount + " from " + from + " to " + to);
 		try {
 			// Create SOAP Connection
 	        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -67,6 +69,7 @@ public class ExchangeRate implements IExchangeRate {
     
 	@WebMethod
 	public String getLastUpdateDate() {
+		logger.info("Get last update date");
 		try {
 			// Create SOAP Connection
 	        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();

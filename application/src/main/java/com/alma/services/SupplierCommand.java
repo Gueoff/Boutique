@@ -6,6 +6,8 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
+import org.apache.log4j.Logger;
+
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
@@ -20,15 +22,17 @@ public class SupplierCommand implements ISupplierCommand{
 
 	private SupplierStub factory = new SupplierStub();
 	private ParserJSON parser = new ParserJSON();
+	private static Logger logger = Logger.getLogger(Authentification.class.getName());
 
 	@WebMethod(operationName="buy")
 	@Override
 	public boolean buy(@WebParam(name = "article")String article) {
-		Article articleImpl = parser.parseArticle(article); 
-		if(factory.buy(articleImpl)){
+		Article a = parser.parseArticle(article);
+		logger.info("buy the article "+ a.getName() +"of the supllier");
+		if(factory.buy(a)){
 			IDAOFactory factoryDao = new DAOFactory();
 			IDAO<Article> articleDao =  factoryDao.createArticleDAO();
-			articleDao.create(articleImpl);
+			articleDao.create(a);
 			return true;
 		}
 		return false;
@@ -38,6 +42,7 @@ public class SupplierCommand implements ISupplierCommand{
 	@WebMethod(operationName="getSupplierArticles")
 	@Override
 	public String getSupplierArticles() {
+		logger.info("get the articles of the supllier");
 		return parser.parseArticles(factory.getArticles());
 	}
 
