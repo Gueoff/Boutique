@@ -1,6 +1,7 @@
 package com.alma.services;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.MimeHeaders;
@@ -20,8 +21,8 @@ public class BankCardPayement implements IBankCardPayement {
 	private static Logger logger = Logger.getLogger(BankCardPayement.class.getName());
 	
 	@Override
-	@WebMethod
-	public boolean check(String cardNumber, String expDate) {
+	@WebMethod(operationName="check")
+	public boolean check(@WebParam(name = "cardNumber")String cardNumber, @WebParam(name = "expDate")String expDate) {
 		logger.info("Check credit card");
 		try {
 			// Create SOAP Connection

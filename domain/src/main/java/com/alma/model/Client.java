@@ -86,7 +86,6 @@ public class Client implements IClient{
 	 * buy all elements in the cart
 	 */
 	public boolean buy(){
-		System.out.println("buy domain");
 		for(IArticle a : cart) {
 			a.setAvailable(false);
 		}

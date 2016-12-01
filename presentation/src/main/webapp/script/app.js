@@ -2,7 +2,8 @@
 	    urlClient : "http://localhost:8080/application/clientcommand",
 	    urlSupplier : "http://localhost:8080/application/suppliercommand",
 	    urlConvert : "http://localhost:8080/application/exchangerate",
-	    urlAuth : "http://localhost:8080/application/authentification"
+	    urlAuth : "http://localhost:8080/application/authentification",
+	    urlcreditCard : "http://localhost:8080/application/creditCard"
 	};
 
     angular.module('shopApp', ['angularSoap'])
@@ -36,12 +37,22 @@
 				$scope.adminActif = true;
 			}
 		}
+   	 	
+   	 	$scope.showCreditCard = function(){
+			if($scope.creditCardActif){
+				$scope.creditCardActif = false;
+			}
+			else{
+				$scope.creditCardActif = true;
+			}
+		};
+   	 	  	 	
    	 	   	 
      }]) //END CONTROLLER
 
 
      //Controller general de l'app
-	.controller('ShopController', ['$scope', 'clientService', 'loginService', 'supplierService', function($scope, clientService, loginService, supplierService){
+	.controller('ShopController', ['$scope', 'clientService', 'loginService', 'supplierService', 'creditCardService', function($scope, clientService, loginService, supplierService, creditCardService){
 		//Variables d'objets
 		$scope.cart = [];
 		$scope.articles = [];
@@ -76,7 +87,9 @@
 			else{
 				$scope.logupActif = true;
 			}
-    	}
+    	};
+    	
+   	 	
     	
 
     	
@@ -142,11 +155,27 @@
     	}
     	
     	//Fonction permettant d'acheter tout le panier
-    	$scope.buy = function() {
-    		clientService.buy($scope.currentUser).then(function(response){
-    			alert('on achete');
+    	$scope.buy = function(cardNumber, expDate) {
+    		creditCardService.check(cardNumber, expDate).then(function(response){
+    			if(response){
+    				alert('Votre carte bleue est valide');
+    				
+    				clientService.buy($scope.currentUser).then(function(response){
+    	    			if(response){
+    	    				clientService.getArticles($scope.typeArticle).then(function(response){
+    	    					$scope.articles = angular.fromJson(response);    		   	
+    	    				}, function(){
+    	    					alert("Something went wrong with getArticles()!");
+    	    				});
+    	    				$scope.cart=[];
+    	    			}
+    	    	  	}, function(){
+    	    	  		alert("Something went wrong with buy!");
+    	    		});
+    				
+    			}
     	  	}, function(){
-    	  		alert("Something went wrong with buy!");
+    	  		alert("Erreur avec votre carte bleue!");
     		});
     	}
     	
@@ -294,6 +323,17 @@
 	        getSupplierArticles: function(){
 	            return $soap.post(config.urlSupplier, "getSupplierArticles");
 	        } 
+	    }
+	}])
+	
+		//Factory faisant des appels SOAP vers le serveur.
+	.factory("creditCardService", ['$soap',function($soap){
+	    return {
+	    	check: function(cardNumber, expDate){
+	        	var cardNumberJson = angular.toJson(cardNumber);
+	        	var expDateJson = angular.toJson(expDate);
+	            return $soap.post(config.urlcreditCard, "check", {cardNumber : cardNumberJson, expDate : expDateJson});
+	        }
 	    }
 	}])
 	

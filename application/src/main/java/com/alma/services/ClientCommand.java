@@ -36,7 +36,7 @@ public class ClientCommand implements IClientCommand{
 	public boolean buy(@WebParam(name = "client") String client) {
 		Client c =parser.parseClient(client);
 		logger.info(c.getName() + "buy the articles in this cart : " + c.getCart());
-		return c.buy(); //A implementer en appelant service distant de CB
+		return c.buy();
 	}
 
 	@WebMethod(operationName="addToCart")
