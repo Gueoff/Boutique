@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class ExchangeRate implements IExchangeRate {
 
 	private static final String webServiceUrl = "http://currencyconverter.kowabunga.net/converter.asmx";
-	private static Logger logger = Logger.getLogger(Authentification.class.getName());	
+	private static Logger logger = Logger.getLogger(ExchangeRate.class.getName());	
 		
 	@WebMethod(operationName="convert")
 	@Override

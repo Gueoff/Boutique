@@ -22,7 +22,7 @@ public class SupplierCommand implements ISupplierCommand{
 
 	private SupplierStub factory = new SupplierStub();
 	private ParserJSON parser = new ParserJSON();
-	private static Logger logger = Logger.getLogger(Authentification.class.getName());
+	private static Logger logger = Logger.getLogger(SupplierCommand.class.getName());
 
 	@WebMethod(operationName="buy")
 	@Override

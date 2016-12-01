@@ -18,7 +18,7 @@ public class ConnectionDerby {
 	
 	private ConnectionDerby()  {
 		try {
-			connect = DriverManager.getConnection("jdbc:derby:src\\main\\ressources\\database;create=true");
+			connect = DriverManager.getConnection("jdbc:derby:src\\main\\resources\\database;create=true");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

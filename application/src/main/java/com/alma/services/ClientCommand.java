@@ -25,7 +25,7 @@ import parser.ParserJSON;
 @SOAPBinding(style = Style.RPC)
 public class ClientCommand implements IClientCommand{
 	
-	private static Logger logger = Logger.getLogger(Authentification.class.getName());
+	private static Logger logger = Logger.getLogger(ClientCommand.class.getName());
 	private ParserJSON parser = new ParserJSON();
 	private IDAOFactory daoFactory = new DAOFactory();
 	private IDAO<Article> articleDao = daoFactory.createArticleDAO();
