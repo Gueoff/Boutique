@@ -5,6 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.alma.factories.DAOFactory;
+import com.alma.factories.IDAOFactory;
+import com.alma.model.Article;
+import com.alma.model.Client;
+import com.alma.model.TypeArticle;
+import com.alma.repositories.IDAO;
+
 public class ConnectionDerby {
 	
 	private static Connection connect = null;
@@ -70,5 +77,24 @@ public class ConnectionDerby {
 			}
 		}
 
+	}
+	
+	public static void init() {
+		IDAOFactory factory = new DAOFactory();
+		IDAO<Client> clientDao = factory.createClientDAO();
+		IDAO<Article> articleDao = factory.createArticleDAO();
+		IDAO<TypeArticle> typeArticleDao = factory.createTypeArticleDAO();
+		
+		typeArticleDao.create(TypeArticle.pull);
+		typeArticleDao.create(TypeArticle.jean);
+		typeArticleDao.create(TypeArticle.veste);
+		clientDao.create(new Client("geoffrey", "desbrosses", 22, "g@d.com","azerty"));
+		clientDao.create(new Client("leoCassiau", "non", 60, "tutu@gmail.com","uiop"));
+		articleDao.create(new Article("jean diesel", "un jean qu iresiste a tout", 39.99, TypeArticle.jean));
+		articleDao.create(new Article("pull over vert", "un pull bien chaud", 78, TypeArticle.pull));
+		articleDao.create(new Article("pull over bleu", "un pull tres fin", 23.8, TypeArticle.pull));
+		articleDao.create(new Article("pull over rouge", "un pull bien chaud", 78, TypeArticle.pull));
+		articleDao.create(new Article("pull over jaune", "un pull bien chaud", 78, TypeArticle.pull));
+		articleDao.create(new Article("veste en cuir", "du cuir veritable", 109.99, TypeArticle.veste));
 	}
 }

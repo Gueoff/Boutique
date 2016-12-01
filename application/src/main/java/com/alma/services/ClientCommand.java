@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
+import com.alma.database.ConnectionDerby;
 import com.alma.database.ConnectionMySQL;
 import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
@@ -52,7 +53,9 @@ public class ClientCommand implements IClientCommand{
 	@Override
 	@WebMethod(operationName="getTypesArticle")
 	public String getTypesArticle() {
-		ConnectionMySQL.use();
+		//ConnectionMySQL.use();
+		//ConnectionDerby.createTables();
+		//ConnectionDerby.init();
 		typeDao = daoFactory.createTypeArticleDAO();
 		List<TypeArticle> list = typeDao.list(null);
 		return parser.parseTypesArticle(list);					
@@ -62,7 +65,7 @@ public class ClientCommand implements IClientCommand{
 	@Override
 	@WebMethod(operationName="getArticles")
 	public String getArticles(@WebParam(name = "type") String type) {
-		ConnectionMySQL.use();
+		//ConnectionMySQL.use();
 		articleDao = daoFactory.createArticleDAO();
 		return parser.parseArticles(articleDao.list(TypeArticle.valueOf(type)));
 	}
