@@ -42,7 +42,7 @@
 			            </div>
 						<button type="submit" class="btn btn-primary">Login</button>
 					</form>	
-					<button type="submit" class="btn btn-primary" ng-click="formLogup()">Logup</button>
+					<button type="submit" class="btn btn-primary" ng-click="showLogup()">Logup</button>
 				</div>
 			</nav>	
 		</div>
@@ -105,27 +105,27 @@
 		
 		
 		<!-- Logup form -->
-		<div class="container-fluid" id="signin">
+		<div class="container-fluid" id="signup" ng-show="logupActif">
 			<form method="post"  class="navbar-form navbar-right" role="form" ng-submit="logup(logupemail, loguppassword, logupfirstname, logupname, logupage)">
 			  	<div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-			       	<input id="logupemail" type="email" class="form-control" name="logupemail" value="" placeholder="Email Address">                                        
+			       	<input id="logupemail" type="email" class="form-control" name="logupemail" value="" placeholder="Email Address" ng-model="logupemail">                                        
 			    </div>
 				<div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="loguppassword" type="password" class="form-control" name="loguppassword" value="" placeholder="Password">                                        
+			        <input id="loguppassword" type="password" class="form-control" name="loguppassword" value="" placeholder="Password" ng-model="loguppassword">                                        
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="logupfirstname" type="text" class="form-control" name="logupfirstname" value="" placeholder="Firstname">                                        
+			        <input id="logupfirstname" type="text" class="form-control" name="logupfirstname" value="" placeholder="Firstname" ng-model="logupfirstname">                                        
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="logupname" type="text" class="form-control" name="logupname" value="" placeholder="Name">                                        
+			        <input id="logupname" type="text" class="form-control" name="logupname" value="" placeholder="Name" ng-model="logupname">                                        
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="logupage" type="text" class="form-control" name=""logupage"" value="" placeholder="Age">                                        
+			        <input id="logupage" type="text" class="form-control" name=""logupage"" value="" placeholder="Age" ng-model="logupage">                                        
 			    </div>
 				<button type="submit" class="btn btn-primary">Log Up</button>
 			</form>	

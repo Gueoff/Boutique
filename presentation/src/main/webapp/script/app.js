@@ -27,7 +27,7 @@
 				$scope.cartActif = true;
 			}
 		}
-   	 
+   	 	   	 
      }]) //END CONTROLLER
 
 
@@ -59,9 +59,16 @@
     		}
 		};
 	
-    	$scope.setCurrentUser = function (user) {
-    		$scope.currentUser = user;
-    	};
+    	$scope.showLogup = function(){
+    		if($scope.logupActif){
+				$scope.logupActif = false;
+			}
+			else{
+				$scope.logupActif = true;
+			}
+    	}
+    	
+
     	
     	//Fonction permettant de charger tous les types d'articles et les articles dès le lancement de l'app.
     	clientService.getTypesArticle().then(function(response){
@@ -172,8 +179,15 @@
     		});
 		};
 		
-		$scope.logup = function(client) {
-			
+		$scope.logup = function(email, password, firstname, name, age) {
+			var client = {name:name, firstname:firstname, age:age, email:email, password:password,cart: []};
+			loginService.logup(client).then(function(response){
+				if(response){
+					$scope.currentUser = client;
+				}
+    	  	}, function(){
+    	  		alert("Something went wrong with logup!");
+    		});
 		};
     	
 	}]) //END CONTROLLER
