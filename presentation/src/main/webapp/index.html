@@ -103,10 +103,26 @@
 					<ul>
 		    			<li><h5>Total : <small class="price">{{total}}{{signeMoney}}</small></h5></li>
 		    			<li>
-		    				<a href="#" class="btn btn-default" role="button" ng-click="buy()">Acheter</a>
+		    				<a href="#" class="btn btn-default" role="button" ng-click="showCreditCard()">Acheter</a>
 		    				<a href="#" class="btn btn-default" role="button" ng-click="clearCart()">Vider panier</a>
 		    			</li>
 		    			
+		    			
+		    			<!-- Form creditCard -->
+						<div class="container-fluid" id=creditCard ng-show="creditCardActif">
+							<form method="post"  class="navbar-form navbar-right" role="form" ng-submit="buy(cardNumber, expDate)">
+							    <div class="input-group">
+							       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+							        <input type="text" class="form-control" name="cardNumber" value="" placeholder="Numero de carte bleue" ng-model="cardNumber">                                        
+							    </div>
+							    <div class="input-group">
+							       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+							        <input type="text" class="form-control" name="expDate" value="" placeholder="Date d'expiration MMAA" ng-model="expDate">                                        
+							    </div>
+								<button type="submit" class="btn btn-primary">Valider</button>
+							</form>	
+							<button type="submit" class="btn btn-primary" ng-click="showCreditCard()">Continuer mes achats</button>
+						</div>
 		    		</ul>
 	    		</div>	
 	  		</li>
@@ -123,7 +139,7 @@
 			      <img src="img/photo-manquante.png" alt="{{article.name}}" width="20%" height="20%">
 			      <div class="caption">
 			        <h2>{{article.name}} <small> {{article.price}}{{signeMoney}}</small></h2>
-			        <p>{{article.description}}</p>
+			        <p>{{article.description}}<small> ({{article.available}})</small></p>
 			        <p><a href="#" class="btn btn-default" role="button" ng-click="addToCart($index)">Ajouter au panier</a></p>
 			      </div>
 			    </div>
@@ -155,11 +171,14 @@
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="logupage" type="text" class="form-control" name=""logupage"" value="" placeholder="Age" ng-model="logupage">                                        
+			        <input id="logupage" type="text" class="form-control" name="logupage" value="" placeholder="Age" ng-model="logupage">                                        
 			    </div>
 				<button type="submit" class="btn btn-primary">Inscription</button>
 			</form>	
 		</div>
+		
+		
+		
 		
 	</body>
 </html>
