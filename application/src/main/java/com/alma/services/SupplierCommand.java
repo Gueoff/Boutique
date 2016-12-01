@@ -1,6 +1,7 @@
 package com.alma.services;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
@@ -20,26 +21,21 @@ public class SupplierCommand implements ISupplierCommand{
 	private SupplierStub factory = new SupplierStub();
 	private ParserJSON parser = new ParserJSON();
 
-	@WebMethod
+	@WebMethod(operationName="buy")
 	@Override
-	public void buy(String article) {
+	public boolean buy(@WebParam(name = "article")String article) {
 		Article articleImpl = parser.parseArticle(article); 
 		if(factory.buy(articleImpl)){
 			IDAOFactory factoryDao = new DAOFactory();
 			IDAO<Article> articleDao =  factoryDao.createArticleDAO();
 			articleDao.create(articleImpl);
+			return true;
 		}
+		return false;
 	}
 
-	@WebMethod
-	@Override
-	public void buyArticles(String articles) {
-		for(String article : parser.parseCollection(articles)){
-			this.buy(article);
-		}
-	}
 
-	@WebMethod
+	@WebMethod(operationName="getSupplierArticles")
 	@Override
 	public String getSupplierArticles() {
 		return parser.parseArticles(factory.getArticles());

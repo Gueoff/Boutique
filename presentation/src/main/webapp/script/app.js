@@ -27,27 +27,37 @@
 				$scope.cartActif = true;
 			}
 		}
+   	 	
+   	 	$scope.showAdmin = function(){
+			if($scope.adminActif){
+				$scope.adminActif = false;
+			}
+			else{
+				$scope.adminActif = true;
+			}
+		}
    	 	   	 
      }]) //END CONTROLLER
 
 
      //Controller general de l'app
-	.controller('ShopController', ['$scope', 'clientService', 'loginService', function($scope, clientService, loginService){
+	.controller('ShopController', ['$scope', 'clientService', 'loginService', 'supplierService', function($scope, clientService, loginService, supplierService){
 		//Variables d'objets
 		$scope.cart = [];
 		$scope.articles = [];
         $scope.types = [];
+        $scope.supplier=[];
         
         //Variables du convertisseur de money
         $scope.money = 'EUR';
         $scope.signeMoney = '€';
         $scope.oldMoney = '';
         $scope.total = 0;
+        $scope.taux = 1;
         
         //Variables de l'user
-        //mock
-        $scope.currentUser = '';//{name:'dela', firstname:'geoffrey', age:22, email:'g@d.com', password:'azerty',cart: $scope.cart};
-
+        $scope.currentUser = '';
+        $scope.admin = false;
     	
     	
     	
@@ -89,7 +99,7 @@
     	$scope.changeType = function(index){
     		$scope.typeArticle = $scope.types[index].name;
     		clientService.getArticles($scope.typeArticle).then(function(response){
-				$scope.articles = angular.fromJson(response);
+				$scope.articles = angular.fromJson(response);    		   	
 			}, function(){
 				alert("Something went wrong with getArticles()!");
 			});
@@ -164,21 +174,34 @@
     				$scope.cart[i].price = ($scope.cart[i].price*taux).toFixed(2);
     			}	
     			$scope.getTotal();	
+    			$scope.taux = taux;
     	  	}, function(){
     	  			alert("Something went wrong with convert!");
     		});
     	};
     	
     	
-    	
+    	//Fonction permettant à un utilisateur de se connecter.
+    	//Affiche les produits a acheter au fournisseur si admin.
     	$scope.login = function (email, password) {
 			loginService.login(email, password).then(function(response){
     			$scope.currentUser = angular.fromJson(response);
+    			if($scope.currentUser.name == 'admin'){
+    				$scope.admin = true;
+    				
+    				supplierService.getSupplierArticles().then(function(response){
+    					$scope.supplier = angular.fromJson(response);
+    				}, function(){
+    					alert("Something went wrong with getSupplierArticles!");
+    				})
+    					
+    			}
     	  	}, function(){
     	  		alert("Something went wrong with login!");
     		});
 		};
 		
+		//Fonction permettant de créer un nouveau client.
 		$scope.logup = function(email, password, firstname, name, age) {
 			var client = {name:name, firstname:firstname, age:age, email:email, password:password,cart: []};
 			loginService.logup(client).then(function(response){
@@ -189,6 +212,18 @@
     	  		alert("Something went wrong with logup!");
     		});
 		};
+
+		//Fonction permettant d'acheter un produit au fournisseur.
+    	$scope.buySupplier = function(index) {
+    		supplierService.buy($scope.supplier[index]).then(function(response){
+    			if(response){
+    				$scope.articles.push($scope.supplier[index]);
+    			}
+    	  	}, function(){
+    	  		alert("Something went wrong with buySupplier!");
+    		});
+    	};
+
     	
 	}]) //END CONTROLLER
 	
@@ -243,6 +278,21 @@
 	        logup: function(client){
 	        	var clientJson = angular.toJson(client);
 	            return $soap.post(config.urlAuth, "logup", {client : clientJson});
+	        } 
+	    }
+	}])
+	
+	
+	//Factory faisant des appels SOAP vers le serveur.
+	.factory("supplierService", ['$soap',function($soap){
+	    return {
+	        buy: function(article){
+	        	var articleJson = angular.toJson(article);
+	            return $soap.post(config.urlSupplier, "buy", {article : articleJson});
+	        },
+	        
+	        getSupplierArticles: function(){
+	            return $soap.post(config.urlSupplier, "getSupplierArticles");
 	        } 
 	    }
 	}])

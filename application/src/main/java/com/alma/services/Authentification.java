@@ -26,7 +26,6 @@ public class Authentification implements IAuthentification{
 	@Override
 	@WebMethod(operationName="logup")
 	public boolean logup(@WebParam(name = "client") String client) {
-		System.out.println(client);
 		clientDao.create(parser.parseClient(client));
 		return true;
 	}
@@ -34,7 +33,6 @@ public class Authentification implements IAuthentification{
 	@Override
 	@WebMethod(operationName="login")
 	public String login(@WebParam(name = "email")String email, @WebParam(name = "password")String password) {
-		System.out.println(email);
 		Client client = clientDao.find(email);
 		return parser.parseClient(client).toString();
 	}
