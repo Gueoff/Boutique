@@ -9,7 +9,7 @@
 		<script src="angular-soap/angular.soap.js"></script>
 		<script src="script/app.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
-		<title>Shop</title>
+		<title>Boutique</title>
 	</head>
 
 	<body ng-controller="ShopController">
@@ -20,7 +20,7 @@
 	  		<h1>Boutique de <small>{{typeArticle}}s</small></h1>
 	  		
 	  		<nav class="navbar navbar-default connection">
-	  			<div ng-if="currentUser" id="welcolme">Welcome, {{currentUser.firstname}} {{ currentUser.name }}</div>
+	  			<div ng-if="currentUser" id="welcolme">Bienvenue {{currentUser.firstname}} {{ currentUser.name }}</div>
 	  			<div id = "change">
 					<form>
 						<select name="money" ng-model="money" ng-change="convert(money)">
@@ -34,22 +34,27 @@
 			  		<form method="post"  class="navbar-form navbar-right" role="form" ng-submit="login(clientEmail, clientPassword)" ng-hide="{{currentUser}}" >
 			        	<div class="input-group">
 			            	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-			                <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address" ng-model="clientEmail">                                        
+			                <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email" ng-model="clientEmail">                                        
 			            </div>
 						<div class="input-group">
 			            	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			                <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password" ng-model="clientPassword">                                        
+			                <input id="password" type="password" class="form-control" name="password" value="" placeholder="Mot de passe" ng-model="clientPassword">                                        
 			            </div>
-						<button type="submit" class="btn btn-primary">Login</button>
+						<button type="submit" class="btn btn-primary">Connexion</button>
 					</form>	
-					<button type="submit" class="btn btn-primary" ng-click="showLogup()">Logup</button>
+					<button type="submit" class="btn btn-primary" ng-click="showLogup()">Inscription</button>
 				</div>
 			</nav>	
 		</div>
 	
 	
+	
+	
+	
 		<!-- Menu bar -->
 		<ul class="nav nav-tabs" data-ng-controller="MenuController">
+		
+		<!-- TYPE ARTICLE -->
 			<li role="presentation" class="dropdown type" >
 	    		<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-click="showType()">
 	      			Articles <span class="caret"></span>
@@ -60,10 +65,35 @@
 		    		</ul>	
 	    		</div>
 	  		</li>
+	  		
+	  		
+	  		<!-- ADMIN -->
+	  		<li role="presentation" class="dropdown admin" ng-show="admin">
+	    		<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-click="showAdmin()">
+	      			Admin <span class="caret"></span>
+	    		</a>
+	    		<div class="typeDesc" ng-show="adminActif" id="adminArticles">
+	    			<!-- Liste des articles -->
+					<article>
+						<div class="row">
+						  <div class="col-sm-6 col-md-4"  ng-repeat="article in supplier">
+						    <div class="thumbnail">
+						      <div class="caption">
+						        <h2>{{article.name}} <small> {{article.price}}{{signeMoney}}</small></h2>
+						        <p><a href="#" class="btn btn-default" role="button" ng-click="buySupplier($index)">Acheter au fournisseur</a></p>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</article>
+	    		</div>
+	  		</li>
 	
+	
+			<!-- PANIER -->
 	  		<li role="presentation" class="dropdown cart" >
 	  			<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-click="showCart()">
-	      			Pannier
+	      			Panier <span class="caret"></span>
 	    		</a>
 	    		<div class="cartDesc" ng-show="cartActif">
 		    		<ul ng-repeat="article in cart">
@@ -109,25 +139,25 @@
 			<form method="post"  class="navbar-form navbar-right" role="form" ng-submit="logup(logupemail, loguppassword, logupfirstname, logupname, logupage)">
 			  	<div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-			       	<input id="logupemail" type="email" class="form-control" name="logupemail" value="" placeholder="Email Address" ng-model="logupemail">                                        
+			       	<input id="logupemail" type="email" class="form-control" name="logupemail" value="" placeholder="Email" ng-model="logupemail">                                        
 			    </div>
 				<div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="loguppassword" type="password" class="form-control" name="loguppassword" value="" placeholder="Password" ng-model="loguppassword">                                        
+			        <input id="loguppassword" type="password" class="form-control" name="loguppassword" value="" placeholder="Mot de passe" ng-model="loguppassword">                                        
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="logupfirstname" type="text" class="form-control" name="logupfirstname" value="" placeholder="Firstname" ng-model="logupfirstname">                                        
+			        <input id="logupfirstname" type="text" class="form-control" name="logupfirstname" value="" placeholder="Prenom" ng-model="logupfirstname">                                        
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			        <input id="logupname" type="text" class="form-control" name="logupname" value="" placeholder="Name" ng-model="logupname">                                        
+			        <input id="logupname" type="text" class="form-control" name="logupname" value="" placeholder="Nom" ng-model="logupname">                                        
 			    </div>
 			    <div class="input-group">
 			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 			        <input id="logupage" type="text" class="form-control" name=""logupage"" value="" placeholder="Age" ng-model="logupage">                                        
 			    </div>
-				<button type="submit" class="btn btn-primary">Log Up</button>
+				<button type="submit" class="btn btn-primary">Inscription</button>
 			</form>	
 		</div>
 		
