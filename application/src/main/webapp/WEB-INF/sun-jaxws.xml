@@ -3,7 +3,7 @@
   xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
   version="2.0">
   <endpoint
-      name="MonTest"
+      name="Authentification"
       implementation="com.alma.services.Authentification"
       url-pattern="/authentification"/>
    <endpoint 
@@ -18,4 +18,8 @@
    	  name="ExchangeRate"
    	  implementation="com.alma.services.ExchangeRate"
    	  url-pattern="/exchangerate"/>
+   <endpoint
+      name="CreditCard"
+      implementation="com.alma.services.BankCardPayement"
+      url-pattern="/creditCard"/>
 </endpoints>

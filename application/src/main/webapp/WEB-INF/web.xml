@@ -54,6 +54,14 @@ Inc.//DTD Web Application 2.3//EN"
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+		<servlet>
+		<servlet-name>creditCard</servlet-name>
+		<servlet-class>
+			com.sun.xml.ws.transport.http.servlet.WSServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	
 	<servlet-mapping>
 		<servlet-name>authentification</servlet-name>
@@ -73,6 +81,11 @@ Inc.//DTD Web Application 2.3//EN"
 	<servlet-mapping>
 		<servlet-name>exchangeRate</servlet-name>
 		<url-pattern>/exchangerate</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>creditCard</servlet-name>
+		<url-pattern>/creditCard</url-pattern>
 	</servlet-mapping>
 
 	<session-config>

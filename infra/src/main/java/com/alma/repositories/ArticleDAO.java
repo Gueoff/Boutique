@@ -57,7 +57,17 @@ public class ArticleDAO extends DAO<Article>{
 
 	@Override
 	public boolean update(Article obj) {
-		return false;
+		try {
+			PreparedStatement prepare = this.connect
+					.prepareStatement("UPDATE article SET name='" + obj.getName() + "', description ='" + obj.getDescription() + "', price = " + obj.getPrice() + ", available = " + obj.isAvailable()+" WHERE id =" + obj.getId() );
+			prepare.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+
 	}
 
 	@Override

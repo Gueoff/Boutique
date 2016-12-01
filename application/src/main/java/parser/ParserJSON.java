@@ -47,7 +47,6 @@ public class ParserJSON {
 	 */
 	public Client parseClient(String client){
 		JSONObject json = new JSONObject(client);
-		System.out.println(client);
 
 		Client c = new Client();
 		c.setName(json.get("name").toString());

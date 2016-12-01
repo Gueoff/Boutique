@@ -16,6 +16,7 @@ import com.alma.factories.DAOFactory;
 import com.alma.factories.IDAOFactory;
 import com.alma.model.Article;
 import com.alma.model.Client;
+import com.alma.model.IArticle;
 import com.alma.model.TypeArticle;
 import com.alma.repositories.IDAO;
 
@@ -34,8 +35,14 @@ public class ClientCommand implements IClientCommand{
 	@Override
 	@WebMethod(operationName="buy")
 	public boolean buy(@WebParam(name = "client") String client) {
-		Client c =parser.parseClient(client);
+		Client c = parser.parseClient(client);
 		logger.info(c.getName() + "buy the articles in this cart : " + c.getCart());
+		for(IArticle iarticle : c.getCart()){
+			Article article = (Article) iarticle;
+			if(!articleDao.update(article)){
+				return false;
+			}
+		}
 		return c.buy();
 	}
 
