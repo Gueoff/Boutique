@@ -24,7 +24,7 @@ public class Authentification implements IAuthentification{
 
 	@Override
 	@WebMethod(operationName="logup")
-	public boolean logup(@WebParam(name = "client") String client) {
+	public boolean signup(@WebParam(name = "client") String client) {
 		Client c = clientDao.create(parser.parseClient(client));
 		logger.info("Logup of client " + c.getName());
 		return true;

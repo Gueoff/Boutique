@@ -26,6 +26,7 @@ public interface IClient {
 	
 	/**
 	 * buy all elements in the cart
+	 * @return true if the articles are bought, else false
 	 */
 	public boolean buy();
 }
