@@ -106,10 +106,5 @@ public class ExchangeRate implements IExchangeRate {
     private String readSOAPResponseLastUpdateDate(SOAPMessage m) throws SOAPException {
 		return m.getSOAPBody().getChildNodes().item(0).getChildNodes().item(0).getChildNodes().item(0).getNodeValue();
     }
-    
-	@WebMethod(exclude = true)
-	public static void main(String[] args) {
-		ExchangeRate t = new ExchangeRate();
-		System.out.println(t.convert(1, "USD", "EUR"));
-	}
+
 }
