@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Cart extends ArrayList<IArticle> implements ICart{
 
+	
 	private static final long serialVersionUID = 1L;
 	
 	/**
