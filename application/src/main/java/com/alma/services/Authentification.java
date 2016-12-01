@@ -22,20 +22,19 @@ public class Authentification implements IAuthentification{
 	private IDAOFactory daoFactory = new DAOFactory();
 	private IDAO<Client> clientDao = daoFactory.createClientDAO();
 
-	
 	@Override
 	@WebMethod(operationName="logup")
 	public boolean logup(@WebParam(name = "client") String client) {
-		System.out.println(client);
-		clientDao.create(parser.parseClient(client));
+		Client c = clientDao.create(parser.parseClient(client));
+		logger.info("Logup of client " + c.getName());
 		return true;
 	}
 	
 	@Override
 	@WebMethod(operationName="login")
 	public String login(@WebParam(name = "email")String email, @WebParam(name = "password")String password) {
-		System.out.println(email);
 		Client client = clientDao.find(email);
+		logger.info("Login of client " + client.getName());
 		return parser.parseClient(client).toString();
 	}
 
