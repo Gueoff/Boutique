@@ -23,7 +23,7 @@ Inc.//DTD Web Application 2.3//EN"
 	
 	
 	<servlet>
-		<servlet-name>testName</servlet-name>
+		<servlet-name>authentification</servlet-name>
 		<servlet-class>
 			com.sun.xml.ws.transport.http.servlet.WSServlet
 		</servlet-class>
@@ -56,8 +56,8 @@ Inc.//DTD Web Application 2.3//EN"
 	
 	
 	<servlet-mapping>
-		<servlet-name>testName</servlet-name>
-		<url-pattern>/test</url-pattern>
+		<servlet-name>authentification</servlet-name>
+		<url-pattern>/authentification</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

@@ -33,11 +33,18 @@ public class Cart extends ArrayList<IArticle> implements ICart{
 	 */
 	@Override
 	public boolean contains(IArticle o) {
-		return super.contains(o);
+		Article article = (Article) o;
+		for(IArticle ia : this){
+			Article a = (Article) ia;
+			if(a.getId() == article.getId()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean empty(){
-		super.clear();
+		this.clear();
 		return true;
 	}
 }

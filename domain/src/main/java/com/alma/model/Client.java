@@ -29,6 +29,10 @@ public class Client implements IClient{
 	private String email;
 
 	/**
+	 * client's password
+	 */
+	private String password;
+	/**
 	 * client's cart of the shop
 	 */
 	private ICart cart = new Cart();
@@ -41,11 +45,12 @@ public class Client implements IClient{
 	 * @param age client's age
 	 * @param email client's email
 	 */
-	public Client(String name, String firstname, int age, String email) {
+	public Client(String name, String firstname, int age, String email, String password) {
 		setName(name);
 		setFirstname(firstname);
 		setAge(age);
 		setEmail(email);
+		setPassword(password);
 	}
 
 	public Client() {
@@ -59,10 +64,8 @@ public class Client implements IClient{
 	public boolean addToCart(IArticle article) {
 		if (article.isAvailable()) {
 			this.cart.add(article);
-			System.out.println("article ajoute");
 			return true;
 		}
-		System.out.println("erreur addToCart domain");
 		return false;
 	}
 
@@ -74,10 +77,8 @@ public class Client implements IClient{
 	public boolean removeToCart(IArticle article) {
 		if (this.cart.contains(article)) {
 			this.cart.remove(article);
-			System.out.println("article retire");
 			return true;
 		}
-		System.out.println("erreur removeToCart domain");
 		return false;
 	}
 
@@ -124,6 +125,14 @@ public class Client implements IClient{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Cart getCart() {

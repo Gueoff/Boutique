@@ -19,12 +19,13 @@ public class ClientDAO extends DAO<Client>{
 	public Client create(Client obj) {
 		try {
 			PreparedStatement prepare = this.connect
-					.prepareStatement("INSERT INTO client (name, firstname, age, email) VALUES(?,?,?,?)");
+					.prepareStatement("INSERT INTO client (name, firstname, age, email, password) VALUES(?,?,?,?,?)");
 
 			prepare.setString(1, obj.getName());
 			prepare.setString(2, obj.getFirstname());
 			prepare.setInt(3, obj.getAge());
 			prepare.setString(4, obj.getEmail());
+			prepare.setString(5, obj.getPassword());
 
 			prepare.executeUpdate();
 			
@@ -64,7 +65,7 @@ public class ClientDAO extends DAO<Client>{
 							"SELECT * FROM client WHERE email ='" + id +"'");
 
 			if (result.first()) {
-				client = new Client(result.getString("name"), result.getString("firstname"), result.getInt("age"), id);
+				client = new Client(result.getString("name"), result.getString("firstname"), result.getInt("age"), id, result.getString("password"));
 
 			}
 		} catch (SQLException e) {

@@ -49,7 +49,7 @@ public class ConnectionDerby {
 
 		try {
 
-			String client = "CREATE TABLE client (name varchar(255), firstname varchar(255), age INT, email varchar(255) PRIMARY KEY)";
+			String client = "CREATE TABLE client (name varchar(255), firstname varchar(255), age INT, email varchar(255) PRIMARY KEY, password varchar(255))";
 			String article = "CREATE table article(id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), name varchar(255), description varchar(255), price REAL, available boolean, id_type integer)";
 			String type = "CREATE table typeArticle(id_type integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), name_type varchar(255))";
 			

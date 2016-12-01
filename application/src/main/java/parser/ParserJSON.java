@@ -26,6 +26,7 @@ public class ParserJSON {
 		json.put("firstname", client.getFirstname());
 		json.put("age", client.getAge());
 		json.put("email", client.getEmail());
+		json.put("password", client.getPassword());
 		
 		JSONArray cart = new JSONArray();
 		Article article;
@@ -34,11 +35,7 @@ public class ParserJSON {
 			article = (Article) iarticle;
 			cart.put(parseArticle(article));	
 		}
-		json.put("cart", cart);
-
-		
-		System.out.println(json);
-		
+		json.put("cart", cart);		
 		return json;
 	}
 	
@@ -57,6 +54,7 @@ public class ParserJSON {
 		c.setFirstname(json.get("firstname").toString());
 		c.setAge(Integer.parseInt(json.get("age").toString()));
 		c.setEmail(json.get("email").toString());
+		c.setPassword(json.get("password").toString());
 		
 		JSONArray cartJson = new JSONArray(json.get("cart").toString());
 		Cart cart = new Cart();
@@ -65,8 +63,6 @@ public class ParserJSON {
 			cart.add(article);
 		}
 		c.setCart(cart);
-		
-		
 		return c;
 	}
 	
@@ -97,7 +93,7 @@ public class ParserJSON {
 		JSONObject json = new JSONObject(article);
 		
 		Article a = new Article();
-		//a.setId(Integer.parseInt(json.get("id").toString()));
+		a.setId(Integer.parseInt(json.get("id").toString()));
 		a.setName(json.get("name").toString());
 		a.setDescription(json.get("description").toString());
 		a.setPrice(Double.parseDouble(json.get("price").toString()));

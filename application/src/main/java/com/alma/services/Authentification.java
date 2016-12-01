@@ -5,6 +5,8 @@ import com.alma.factories.IDAOFactory;
 import com.alma.model.Client;
 import com.alma.repositories.IDAO;
 
+import parser.ParserJSON;
+
 import javax.jws.*;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
@@ -13,36 +15,28 @@ import org.apache.log4j.Logger;
 
 @WebService(endpointInterface = "com.alma.services.Authentification")
 @SOAPBinding(style = Style.RPC)
-public class Authentification {
+public class Authentification implements IAuthentification{
 
 	private static Logger logger = Logger.getLogger(Authentification.class.getName());
+	private ParserJSON parser = new ParserJSON();
+	private IDAOFactory daoFactory = new DAOFactory();
+	private IDAO<Client> clientDao = daoFactory.createClientDAO();
 
-	@WebMethod
-	public boolean login(String login, String password){
-		logger.info("Authentification, login : " + login);
-		
-		IDAOFactory factory = new DAOFactory();
-		IDAO<Client> clientDao =  factory.createClientDAO();
-		Client client = clientDao.find(login);
-		if(client.getName() == null){
-			return false;
-		}
+	
+	@Override
+	@WebMethod(operationName="logup")
+	public boolean logup(@WebParam(name = "client") String client) {
+		System.out.println(client);
+		clientDao.create(parser.parseClient(client));
 		return true;
 	}
 	
-	@WebMethod
-	public void logup(Client client){
-		logger.info("Test2");
+	@Override
+	@WebMethod(operationName="login")
+	public String login(@WebParam(name = "email")String email, @WebParam(name = "password")String password) {
+		System.out.println(email);
+		Client client = clientDao.find(email);
+		return parser.parseClient(client).toString();
+	}
 
-		IDAOFactory factory = new DAOFactory();
-		IDAO<Client> clientDao =  factory.createClientDAO();
-		clientDao.create(client);
-	}
-	
-	@WebMethod(exclude = true)
-	public static void main(String[] args) {
-		Authentification a = new Authentification();
-		a.login("toto", "mo2pass");
-		//a.logup(null);
-	}
 }

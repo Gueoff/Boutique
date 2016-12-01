@@ -71,14 +71,14 @@ public class ConnectionMySQL {
 		}
 	}
 
-	public static void createTable() {
+	public static void createTables() {
 		Connection conn = getInstance();
 		Statement stmt = null;
 
 		try {
 
 			String bdd = "USE boutique";
-			String client = "CREATE table client(name varchar(255), firstname varchar(255), age integer, email varchar(255) PRIMARY KEY);";
+			String client = "CREATE table client(name varchar(255), firstname varchar(255), age integer, email varchar(255) PRIMARY KEY, password varchar(255));";
 			String article = "CREATE table article(id integer auto_increment PRIMARY KEY, name varchar(255), description varchar(255), price long, available boolean, id_type integer);";
 			String type = "CREATE table typeArticle(id_type integer auto_increment PRIMARY KEY, name_type varchar(255))";
 			

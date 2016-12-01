@@ -17,11 +17,10 @@
 
 		<!-- Header -->
 		<div class="page-header">
-	  		<h1>Boutique2Ouf<small>lalala</small></h1>
+	  		<h1>Boutique de <small>{{typeArticle}}s</small></h1>
 	  		
-	  		<nav class="navbar navbar-default connection" ng-controller="LoginController">
-				
-	  			<!--<div ng-if="currentUser" id = "welcolme">Welcome, {{currentUser.firstname}} {{ currentUser.name }}</div>-->
+	  		<nav class="navbar navbar-default connection">
+	  			<div ng-if="currentUser" id="welcolme">Welcome, {{currentUser.firstname}} {{ currentUser.name }}</div>
 	  			<div id = "change">
 					<form>
 						<select name="money" ng-model="money" ng-change="convert(money)">
@@ -31,18 +30,19 @@
 					</form>
 	  			</div>
 
-	  			<div class="container-fluid">
-			  		<form method="post" id="signin" class="navbar-form navbar-right" role="form" ng-submit="login(credentials)">
+	  			<div class="container-fluid" id="signin">
+			  		<form method="post"  class="navbar-form navbar-right" role="form" ng-submit="login(clientEmail, clientPassword)" ng-hide="{{currentUser}}" >
 			        	<div class="input-group">
 			            	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-			                <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address" ng-model="credentials.username">                                        
+			                <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address" ng-model="clientEmail">                                        
 			            </div>
 						<div class="input-group">
 			            	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-			                <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password" ng-model="credentials.password">                                        
+			                <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password" ng-model="clientPassword">                                        
 			            </div>
 						<button type="submit" class="btn btn-primary">Login</button>
 					</form>	
+					<button type="submit" class="btn btn-primary" ng-click="formLogup()">Logup</button>
 				</div>
 			</nav>	
 		</div>
@@ -56,7 +56,7 @@
 	    		</a>
 	    		<div class="typeDesc" ng-show="typeActif">
 	    			<ul ng-repeat="type in types">
-		    			<a href="index.html?type={{type.name}}"><li role="presentation" class="dropdown">{{type.name}}</li></a>
+		    			<a href="#"><li role="presentation" class="dropdown"  ng-click="changeType($index)">{{type.name}}</li></a>
 		    		</ul>	
 	    		</div>
 	  		</li>
@@ -67,7 +67,7 @@
 	    		</a>
 	    		<div class="cartDesc" ng-show="cartActif">
 		    		<ul ng-repeat="article in cart">
-		    			<li><h5>{{article.name}}<small class="price"> {{article.price}}{{signeMoney}}</small></h5><div id="removeToCart" ng-click="removeToCart($index)">R</div></li>
+		    			<li id="cartArticle"><h5>{{article.name}}<small class="price"> {{article.price}}{{signeMoney}}</small></h5><a href="#" id="removeToCart" ng-click="removeToCart($index)"></a></li>
 		    		</ul>
 		    		<hr>
 					<ul>
@@ -90,7 +90,7 @@
 			<div class="row">
 			  <div class="col-sm-6 col-md-4"  ng-repeat="article in articles">
 			    <div class="thumbnail">
-			      <img src="img/photo-manquante.png" alt="{{article.name}}" width="30%" height="20%">
+			      <img src="img/photo-manquante.png" alt="{{article.name}}" width="20%" height="20%">
 			      <div class="caption">
 			        <h2>{{article.name}} <small> {{article.price}}{{signeMoney}}</small></h2>
 			        <p>{{article.description}}</p>
@@ -100,5 +100,36 @@
 			  </div>
 			</div>
 		</article>
+		
+		
+		
+		
+		<!-- Logup form -->
+		<div class="container-fluid" id="signin">
+			<form method="post"  class="navbar-form navbar-right" role="form" ng-submit="logup(logupemail, loguppassword, logupfirstname, logupname, logupage)">
+			  	<div class="input-group">
+			       	<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+			       	<input id="logupemail" type="email" class="form-control" name="logupemail" value="" placeholder="Email Address">                                        
+			    </div>
+				<div class="input-group">
+			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			        <input id="loguppassword" type="password" class="form-control" name="loguppassword" value="" placeholder="Password">                                        
+			    </div>
+			    <div class="input-group">
+			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			        <input id="logupfirstname" type="text" class="form-control" name="logupfirstname" value="" placeholder="Firstname">                                        
+			    </div>
+			    <div class="input-group">
+			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			        <input id="logupname" type="text" class="form-control" name="logupname" value="" placeholder="Name">                                        
+			    </div>
+			    <div class="input-group">
+			       	<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+			        <input id="logupage" type="text" class="form-control" name=""logupage"" value="" placeholder="Age">                                        
+			    </div>
+				<button type="submit" class="btn btn-primary">Log Up</button>
+			</form>	
+		</div>
+		
 	</body>
 </html>

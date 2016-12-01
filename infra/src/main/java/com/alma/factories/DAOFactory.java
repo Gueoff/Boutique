@@ -15,7 +15,7 @@ import com.alma.repositories.TypeArticleDAO;
 
 public class DAOFactory implements IDAOFactory{
 
-	protected static final Connection conn = ConnectionDerby.getInstance();
+	protected static final Connection conn = ConnectionMySQL.getInstance();
 
 	/**
 	 * create a new instance of a client DAO

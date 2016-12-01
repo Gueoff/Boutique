@@ -24,8 +24,8 @@ li{
 	right:0;
 	margin-right:5%;
 	position:absolute;
-	width:20%;
-	min-width:200px;
+	width:30%;
+	min-width:260px;
 }
 
 .cartDesc, .typeDesc{
@@ -48,9 +48,20 @@ li{
 	position:absolute;
 	top:0;
 	left:0;
-	margin-left:-100%;
+	margin-left:-60%;
 	margin-top:1%;
 }
-#welcolme{
-
+#cartArticle{
+	position:relative;
+	
+}
+#removeToCart{
+	width:10px;
+	height:10px;
+	border-radius:70%;
+	background-color:red;
+	position:absolute;
+	top:0;
+	right:0;
+	margin-top:3px;
 }
