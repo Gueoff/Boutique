@@ -1,5 +1,11 @@
 package com.alma.services;
  
+/**
+ * Services of the shop's supplier
+ * 
+ * @author Léo Cassiau, Geoffrey Desbrosses
+ * @version 0.0.1
+ */
 public interface ISupplierCommand {
 
 	/**

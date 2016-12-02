@@ -139,20 +139,5 @@ public class ParserJSON {
 		}
 		return liste.toString();
 	}
-	
 
-	/**
-	 * TODO Marche probablement pas
-	 * Forme une liste d'objet JSON à partir d'une liste JSON
-	 * @param list liste à lire
-	 * @return liste d'objet JSON parcourable en java
-	 */
-	public Collection<String> parseCollection(String list) {
-		Collection<String> liste = new ArrayList<String>();
-		JSONArray test = new JSONObject(list).getJSONArray("");
-		for(Object j : test){
-			liste.add(j.toString());
-		}
-		return liste;
-	}
 }

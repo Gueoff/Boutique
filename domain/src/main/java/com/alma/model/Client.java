@@ -44,6 +44,7 @@ public class Client implements IClient{
 	 * @param firstname client's firstname
 	 * @param age client's age
 	 * @param email client's email
+	 * @param password client's password
 	 */
 	public Client(String name, String firstname, int age, String email, String password) {
 		setName(name);

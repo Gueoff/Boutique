@@ -20,7 +20,7 @@ import parser.ParserJSON;
 @SOAPBinding(style=Style.RPC)
 public class SupplierCommand implements ISupplierCommand{
 
-	private SupplierStub factory = new SupplierStub();
+	private SupplierStub supplier = new SupplierStub();
 	private ParserJSON parser = new ParserJSON();
 	private static Logger logger = Logger.getLogger(SupplierCommand.class.getName());
 
@@ -29,7 +29,7 @@ public class SupplierCommand implements ISupplierCommand{
 	public boolean buy(@WebParam(name = "article")String article) {
 		Article a = parser.parseArticle(article);
 		logger.info("buy the article "+ a.getName() +"of the supllier");
-		if(factory.buy(a)){
+		if(supplier.buy(a)){
 			IDAOFactory factoryDao = new DAOFactory();
 			IDAO<Article> articleDao =  factoryDao.createArticleDAO();
 			articleDao.create(a);
@@ -43,7 +43,7 @@ public class SupplierCommand implements ISupplierCommand{
 	@Override
 	public String getSupplierArticles() {
 		logger.info("get the articles of the supllier");
-		return parser.parseArticles(factory.getArticles());
+		return parser.parseArticles(supplier.getArticles());
 	}
 
 }
