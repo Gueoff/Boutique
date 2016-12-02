@@ -1,6 +1,9 @@
 # Boutique
 projet de service alma m2
 
+#Rapport
+Le rapport est dans le dossier doc/ de boutique/
+
 #Eclipse
 Pour lancer l'apllication, éxecuter les commandes suivantes:
 mvn install (sur la Boutique)
@@ -9,10 +12,14 @@ puis sur la couche application, faire mvn build en précisant dans le goal "tomc
 
 #Ligne de commande
 mvn install
-tomcat7:run
+cd application
+mvn tomcat7:run
 
 #Accès à l'ihm
 Ensuite, il suffit d'ouvrir le fichier index.html présent dans la couche présentation et utiliser l'application.
+
+#Doc
+La documentation de la boutique est généré dans les dossiers doc/ de chaque couche.
 
 #Génération de la javadoc
 Pour générer la javadoc, éxecuter la commande suivante : mvn javadoc:javadoc
