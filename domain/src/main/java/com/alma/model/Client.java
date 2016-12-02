@@ -90,7 +90,6 @@ public class Client implements IClient{
 			a.setAvailable(false);
 		}
 		// TODO A PLUS DARGENT
-		cart = new Cart();
 		return true;
 	}
 

@@ -31,7 +31,7 @@ public interface IDAO<T> {
 	 * update an object in the database
 	 * 
 	 * @param obj object updated
-	 * @return true if the object is updated, else false
+	 * @return true if the object has been updated, ffalse else
 	 */
 	public boolean update(T obj);
 	
