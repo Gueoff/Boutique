@@ -14,7 +14,6 @@
 
 	<body ng-controller="ShopController">
 	
-
 		<!-- Header -->
 		<div class="page-header">
 	  		<h1>Boutique de <small>{{typeArticle}}s</small></h1>
@@ -136,11 +135,12 @@
 			<div class="row">
 			  <div class="col-sm-6 col-md-4"  ng-repeat="article in articles">
 			    <div class="thumbnail">
-			      <img src="img/photo-manquante.png" alt="{{article.name}}" width="20%" height="20%">
+			      <img src="img/outofstock.png" alt="{{article.name}}" width="20%" height="20%" ng-hide="{{article.available}}">
+			      <img src="img/photo-manquante.png" alt="{{article.name}}" width="20%" height="20%" ng-show="{{article.available}}">
 			      <div class="caption">
 			        <h2>{{article.name}} <small> {{article.price}}{{signeMoney}}</small></h2>
-			        <p>{{article.description}}<small> ({{article.available}})</small></p>
-			        <p><a href="#" class="btn btn-default" role="button" ng-click="addToCart($index)">Ajouter au panier</a></p>
+			        <p>{{article.description}}</p>
+			        <p><a href="#" class="btn btn-default" role="button" ng-click="addToCart($index)" ng-show="{{article.available}}">Ajouter au panier</a></p>
 			      </div>
 			    </div>
 			  </div>

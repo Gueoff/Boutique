@@ -124,6 +124,7 @@
     			if(response){
     				$scope.cart.push($scope.articles[index]);
     				$scope.getTotal();
+    				$scope.currentUser.cart = $scope.cart;
     			}
     	  	}, function(){
     	  		alert("Something went wrong with addToCart!");
@@ -136,6 +137,7 @@
     			if(response){
     				$scope.cart.pop($scope.cart[index]);
     				$scope.getTotal();
+    				$scope.currentUser.cart = $scope.cart;
     			}
     	  	}, function(){
     	  		alert("Something went wrong with removeToCart!");
@@ -148,6 +150,7 @@
     			if(response){
     				$scope.cart = [];
     				$scope.getTotal();
+    				$scope.currentUser.cart = [];
     			}
     	  	}, function(){
     	  		alert("Something went wrong with clearCart!");
@@ -159,15 +162,16 @@
     		creditCardService.check(cardNumber, expDate).then(function(response){
     			if(response){
     				alert('Votre carte bleue est valide');
-    				
     				clientService.buy($scope.currentUser).then(function(response){
     	    			if(response){
+    	    				
     	    				clientService.getArticles($scope.typeArticle).then(function(response){
     	    					$scope.articles = angular.fromJson(response);    		   	
     	    				}, function(){
     	    					alert("Something went wrong with getArticles()!");
     	    				});
     	    				$scope.cart=[];
+    	    				$scope.currentUser.cart = [];
     	    			}
     	    	  	}, function(){
     	    	  		alert("Something went wrong with buy!");
