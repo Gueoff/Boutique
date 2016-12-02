@@ -45,8 +45,19 @@ public class ConnectionDerby {
 			stmt.execute(article);
 			stmt.execute(type);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException se) {
+			if(se.getSQLState().equals("42Y55")) {
+				// Ignore : tables don't exist
+			} else {
+				se.printStackTrace();
+			}
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} 
+			catch (SQLException se2) {
+			}
 		}
 	}
 
@@ -67,7 +78,11 @@ public class ConnectionDerby {
 			stmt.executeUpdate(type);
 
 		} catch (SQLException se) {
-			se.printStackTrace();
+			if(se.getSQLState().equals("X0Y32")) {
+				// Ignore : tables already exist
+			} else {
+				se.printStackTrace();
+			}
 		} finally {
 			try {
 				if (stmt != null)
@@ -96,5 +111,33 @@ public class ConnectionDerby {
 		articleDao.create(new Article("pull over rouge", "un pull bien chaud", 78, TypeArticle.pull));
 		articleDao.create(new Article("pull over jaune", "un pull bien chaud", 78, TypeArticle.pull));
 		articleDao.create(new Article("veste en cuir", "du cuir veritable", 109.99, TypeArticle.veste));
+	}
+
+	public static void clear() {
+		getInstance();
+		Statement stmt = null;
+
+		try {
+			String client = "DELETE FROM client WHERE 1=1";
+			String article = "DELETE FROM article WHERE 1=1";
+			String type = "DELETE FROM typeArticle WHERE 1=1";
+			
+			// execution des requêtes
+			stmt = connect.createStatement();
+			stmt.executeUpdate(client);
+			stmt.executeUpdate(article);
+			stmt.executeUpdate(type);
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} 
+			catch (SQLException se2) {
+			}
+		}
+		
 	}
 }
