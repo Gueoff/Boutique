@@ -14,6 +14,9 @@ tomcat7:run
 #Accès à l'ihm
 Ensuite, il suffit d'ouvrir le fichier index.html présent dans la couche présentation et utiliser l'application.
 
+#Génération de la javadoc
+Pour générer la javadoc, éxecuter la commande suivante : mvn javadoc:javadoc
+
 #note
 pour avoir accès au compte admin, saisir les informations suivantes lors de la connexion:
 
