@@ -11,6 +11,7 @@
 	<artifactId>application</artifactId>
 	<name>application</name>
 	<description>couche application du ddd</description>
+	<packaging>war</packaging>
 
 	<build>
 		<plugins>
@@ -52,6 +53,5 @@
 		</dependency>
 		
 	</dependencies>
-	
-	<packaging>war</packaging>
+		
 </project>
