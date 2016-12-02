@@ -22,23 +22,24 @@ public class DatabaseTestCase {
 		ConnectionDerby.createTables();
 	}
 	
+	@AfterClass
+	public static void clearDatabase() {
+		ConnectionDerby.dropTables();
+	}
+	
 	@Test
 	public void scenarioTest() {
+		ConnectionDerby.init();
+
 		IDAOFactory factory = new DAOFactory();
 		IDAO<Client> clientDao = factory.createClientDAO();
 		IDAO<Article> articleDao = factory.createArticleDAO();
 		IDAO<TypeArticle> typeArticleDao = factory.createTypeArticleDAO();
 		
-		ConnectionDerby.init();
-		
 		assertEquals("jean diesel", articleDao.find(1).getName());
 		assertEquals("leoCassiau", clientDao.find("tutu@gmail.com").getName());
 		assertEquals("[pull, jean, veste]" ,typeArticleDao.list(null).toString());
 	}
-	
-	@AfterClass
-	public static void deleteDatabase() {
-		ConnectionDerby.dropTables();
-	}
+
 }
 
